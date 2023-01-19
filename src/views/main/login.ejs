@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Mosaddek">
+        <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+        <link rel="shortcut icon" href="/img/favicon.png">
+      
+        
+        <title>Log in</title>
+            
+      
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap-reset.css" rel="stylesheet">
+        <!--external css-->
+        <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+      
+        <!-- Custom styles for this template -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/style-responsive.css" rel="stylesheet" />
+    
+        <!-- Custom styles for this template -->
+        <link href="/css/userLogin.css" rel="stylesheet">
+    </head>
+<body class="body">
+    <!-- Include Header -->
+    <!--header end-->
+
+    <main class="main-style"> 
+        <div class="diferent-logins">
+            <div class="signin">INGRESAR</div>
+        </div>
+            <form action="/users/login" method="POST" id="form" novalidate>
+                <% if (locals.errors && errors.noUser) { %>
+                    <p class="feedback"><%= errors.noUser.msg %></p>
+                <% } %>
+                <% if (locals.errors && errors.userInactive) { %>
+                    <p class="feedback"><%= errors.userInactive.msg %></p>
+                <% } %> 
+                <div class="main-forms-container">
+                      
+                    <div class="input">
+                        <input type="text" name="user" placeholder="Ingrese su Usuario" class="form-format" id="user" value="<%= locals.old && old.user %>">
+                        <% if (locals.errors && errors.user) { %>
+                            <p class="feedback"><%= errors.user.msg %></p>
+                        <% } %>
+                    </div>               
+                    <div class="input">  
+                        <input type="password" name="password" placeholder="Contraseña" class="form-format" id="password" value="<%= locals.old && old.password %>">
+                        <% if (locals.errors && errors.password) { %>
+                            <p class="feedback"><%= errors.password.msg %></p>
+                        <% } %>
+                    </div>                    
+                </div>
+                <div class="rememberMe-container">
+                    <label for="rememberMe" class="instructions-format">Recordame</label>
+                    <input type="checkbox" name="rememberMe">
+                </div>
+                <div class="instructions-format"></div>
+                <div>
+                    <button type="submit" class="entry-button">ENTRAR</button>
+                </div>
+            </form>   
+    </main>
+  <!-- Include Footer -->  
+  <!-- Footer end --> 
+  
+  <!-- <script src="/js/validacionUser.js"></script> -->
+</body>
+</html>

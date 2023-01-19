@@ -1,0 +1,25 @@
+.bio-graph-info h1 {
+    font-weight: 750;
+    margin: 10px 10px 10px 0px;
+}
+.bio-row span {
+    font-weight: 700;
+}
+.bio-graph-heading {
+    font-weight: 700;
+    font-size: x-large;
+}
+div.approve {
+    display:inline-flex;
+}
+.btn {
+    margin: 5px
+}
+.invoice-status {
+    display:inline-flex;
+    align-items: center;
+}
+label.error {
+    color: var(--danger);
+    font-weight: bold;
+}

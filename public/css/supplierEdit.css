@@ -1,0 +1,14 @@
+.p-boton {
+    margin-top: 8px
+}
+.boton {
+    background-color: #9D1D96;
+    padding: 5px;
+    color: #ffffff;
+    font-size: medium;
+    font-weight: 650;
+    border-radius: 10px;
+}
+.bio-row span {
+    font-weight: 700;
+}
