@@ -21,6 +21,12 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      active: {
+        type: Sequelize.INTEGER
+      },
+      resetFlag: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

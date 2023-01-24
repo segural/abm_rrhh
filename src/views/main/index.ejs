@@ -8,7 +8,7 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>Adama Home</title>
+    <title>ABM - Usuarios</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -24,204 +24,14 @@
 
     <section id="container" class="">
     <!-- Include Header -->
-    <%- include('partials/header.ejs') %>
+    <%- include('../partials/header.ejs') %>
     <!--header end-->
 
     <!--Include Sidebar-->
-        <%- include('partials/sidebar.ejs') %>
+        <%- include('../partials/sidebar.ejs') %>
     <!--sidebar end-->
 
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper site-min-height">
-        <!-- page start-->
-        <div class="row">
-            <div class="col-lg-12">
 
-                <section id="main-content">
-                    <!-- Dashboard card -->
-                    <section class="wrapper">
-                        <div class="row state-overview">
-                            <div class="col-lg-4 col-sm-6" style="margin-left: 3%;">
-                                <a href="/suppliers/list">
-                                    <section class="card">
-                                        <div class="symbol terques">
-                                            <i class="fa fa-users"></i>
-                                        </div>
-                                        <div class="value">
-                                            <h1 class="count">
-                                                <%= supplierCount %> 
-                                            </h1>
-                                            <p>Proveedores pendientes</p>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-sm-6" style="margin-left: 3%;">
-                                <a href="/invoices/pending">
-                                    <section class="card">
-                                        <div class="symbol red">
-                                            <i class="fa fa-files-o"></i>
-                                        </div>
-                                        <div class="value">
-                                            <h1 class=" count2">
-                                                <%= count %> 
-                                            </h1>
-                                            <p>Comprobantes pendientes</p>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Fin Dashboard card -->
-                </section>
-                <section id="main-content">
-                    <section class="wrapper site-min-height">
-                        <div class="row">
-                        <div class="col-sm-9">
-                            <section class="card">
-                                <header class="card-header">
-                                    <i class="fa fa-files-o "></i> Listado de Comprobantes pendientes
-                                </header>
-                                <div class="card-body">
-                                    <div class="adv-table">
-                                    <div class="adv-table">
-                                        <table  class="display table table-bordered table-striped" id="invoice-pending">
-                                            <thead>
-                                                <tr>
-                                                    <th><i class=" fa fa-list-ol"></i> Nº de comprobante</th>
-                                                    <th><i class=" fa fa-calendar"></i> Vencimiento</th>                                                    
-                                                    <th><i class="fa fa-truck"></i> Nombre Proveedor</th>
-                                                    <th class="hidden-phone"><i class="fa fa-money"></i> Moneda</th>
-                                                    <th><i class="fa fa-usd"></i> Monto</th>
-                                                    <th class="center"><i class=" fa fa-edit"></i> Estado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% for(invoice of invoices) { %>
-                                                    <tr>
-                                                        <td><a href="./invoices/<%= invoice.id %>/detail"><%= invoice.pointsale.toString().padStart(5, '0') %>-<%= invoice.number.toString().padStart(8, '0') %></a></td>
-                                                        <td><%= invoice.duedate %></td>                                                        
-                                                        <td><%= invoice.suppliers.name %></td>
-                                                        <td class="hidden-phone"><%= invoice.currency %></td>
-                                                        <td><%= Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, }).format(invoice.amount) %> </td>
-                                                        <td class="center">
-                                                            <% if (invoice.status == -1) { %>
-                                                                <span class="badge badge-danger label-mini">Reenviado a proveedor</span>
-                                                            <%} else if (invoice.status == 0) { %>
-                                                                <span class="badge badge-primary label-mini">Incompleta</span>
-                                                            <% } else if (invoice.status == 1) { %>
-                                                                <span class="badge badge-secondary label-mini">Pendiente Sponsor</span>
-                                                            <% } else if (invoice.status == 2) { %>
-                                                                <span class="badge badge-warning label-mini">Pendiente Contabilidad</span>
-                                                            <% } else if (invoice.status == 3) { %>
-                                                                <span class="badge badge-adamaSecondaryPurple label-mini">Pendiente Impuestos</span>
-                                                            <% } else if (invoice.status == 4) { %>
-                                                                <span class="badge badge-info label-mini">Pendiente Finanzas</span>
-                                                            <% } else if (invoice.status == 5) { %>
-                                                                <span class="badge badge-adamaPestControl label-mini">Pendiente Tesorería</span>
-                                                            <% } else if (invoice.status == 6) { %>
-                                                                <span class="badge badge-adamaWeedControl label-mini">Pagada</span>
-                                                                <% if (invoice.needsCert && !invoice.cert) { %>
-                                                                    <span class="badge badge-primary label-mini">Falta Retención</span>                                                             
-                                                                <% } %>
-                                                            <% } else if (invoice.status == 7) { %>
-                                                                <span class="badge badge-adamaCorporateGreen label-mini">Pendiente Creditos</span>
-                                                            <% } else { %>
-                                                                <span class="badge badge-adamaSecondaryBlue label-mini">Compensada</span>
-                                                                <% if (invoice.needsCert && !invoice.cert) { %>
-                                                                    <span class="badge badge-primary label-mini">Falta Retención</span>
-                                                                <% } %>
-                                                            <% } %>
-                    
-                                                            <% if (invoice.status >= 2 && invoice.status <= 4 && invoice.compensate) { %>
-                                                                <span class="badge badge-primary label-mini">A compensar</span>
-                                                            <% } %>
-                                                        </td>                                                                                                                   
-                                                        </tr>                                  
-                                                <% } %>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th><i class=" fa fa-list-ol"></i> Nº de comprobante</th>
-                                                    <th><i class=" fa fa-calendar"></i> Vencimiento</th>                                                    
-                                                    <th><i class="fa fa-truck"></i> Nombre Proveedor</th>
-                                                    <th class="hidden-phone"><i class="fa fa-money"></i> Moneda</th>
-                                                    <th><i class="fa fa-usd"></i> Monto</th>
-                                                    <th><i class=" fa fa-edit"></i> Estado</th>
-                                                </tr>                                          
-                                            </tfoot>
-                                        </table>                            
-                                    </div>
-                                </div>                        
-                            </section>
-                            <section class="card">
-                                <header class="card-header">
-                                    <i class="fa fa-files-o "></i> Proveedores para aprobar
-                                </header>
-                                <div class="card-body">
-                                    <div class="adv-table">
-                                    <div class="adv-table">
-                                        <table  class="display table table-bordered table-striped" id="invoice-pending">
-                                            <thead>
-                                                <tr>
-                                                    <th>Compañía</th>
-                                                    <th>Contacto</th>
-                                                    <th class="hidden-phone">E-mail</th>
-                                                    <th class="hidden-phone">Estado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% for (supplier of suppliers) {%>
-                                                    <tr class="gradeA">                
-                                                        <td> <a href="/suppliers/profile/<%= supplier.id %> "><%= supplier.name %> </a></td>
-                                                        <td><%= supplier.firstName %> <%= supplier.lastName %> </td>
-                                                        <td class="hidden-phone"><%= supplier.email %> </td>
-                                                        <td class="center hidden-phone">
-                                                                <% if (supplier.active == 3) { %>
-                                                                    <button class="btn btn-primary btn-sm" type="button" name="estado" value="4"><i class="fa fa-check"></i></button>
-                                                                <% } else if (supplier.active < 3) { %>
-                                                                    <button class="btn btn-primary btn-sm" style="background-color: yellow;" type="button" name="estado"><i class="fa fa-exclamation-triangle" style="color: black;"></i></button>
-                                                                <% } else if (supplier.active == 5) { %>
-                                                                    <button class="btn btn-primary btn-sm" style="background-color: lightblue;" type="button" name="estado"><i class="fa fa-refresh" style="color: black;"></i></button>
-                                                                <% } else {%> 
-                                                                    <button class="btn btn-danger btn-sm" type="button" name="estado" value="3"><i class="fa fa-times"></i></button>
-                                                                <% } %>
-                                                        </td>                                                                                                                    
-                                                    </tr>                                  
-                                                <% } %>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Compañía</th>
-                                                    <th>Contacto</th>
-                                                    <th class="hidden-phone">E-mail</th>
-                                                    <th class="hidden-phone">Estado</th>
-                                                </tr>                                          
-                                            </tfoot>
-                                        </table>                            
-                                    </div>
-                                </div>                        
-                            </section>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                </section>
-            </section>
-            </div>
-        </div>
-    </div>
-        <!-- page end-->
-        </section>
-    </section>
-    <!--main content end-->
-
-    <!-- Include footer -->
-
-    <!-- footer end -->
-    </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="/js/jquery.js"></script>

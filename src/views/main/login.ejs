@@ -29,14 +29,25 @@
     <body class="login-body">
 
         <div class="container">
-
-        <form class="form-signin" action="index.html">
+        <form class="form-signin" action="/login" method="POST" id="form" novalidate>
+            <% if (locals.errors && errors.noUser) { %>
+                <p class="feedback"><%= errors.noUser.msg %></p>
+            <% } %>
+            <% if (locals.errors && errors.userInactive) { %>
+                <p class="feedback"><%= errors.userInactive.msg %></p>
+            <% } %> 
             <h2 class="form-signin-heading">INICIAR SESION</h2>
             <div class="login-wrap">
-                <input type="text" class="form-control" placeholder="Usuario" autofocus>
-                <input type="password" class="form-control" placeholder="Contraseña">
+                <input type="text" class="form-control" name="user" placeholder="Usuario" autofocus value="<%= locals.old && old.user %>">
+                <% if (locals.errors && errors.user) { %>
+                    <p class="feedback"><%= errors.user.msg %></p>
+                <% } %>
+                <input type="password" class="form-control" name="password" placeholder="Contraseña" value="<%= locals.old && old.password %>">
+                <% if (locals.errors && errors.password) { %>
+                    <p class="feedback"><%= errors.password.msg %></p>
+                <% } %>
                 <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Recordame
+                    <input type="checkbox" name="rememberMe"> Recordame
                 </label>
                 <button class="btn btn-lg btn-login btn-block" type="submit">Enviar</button>
             </div>

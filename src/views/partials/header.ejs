@@ -3,7 +3,7 @@
         <i class="fa fa-bars"></i>
     </div>
     <!--logo start-->
-    <a href="/" class="logo"><img alt="logo" src="/img/logo.jpg" height="30px"></a>
+    <a href="/" class="logo"><img alt="logo" src="/img/logo.png" height="30px"></a>
     <!--logo end-->
     
     <div class="top-nav ">
@@ -15,8 +15,7 @@
             <!-- user login dropdown start-->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <img alt="" src="/img/users/<%= locals.userLogged.image %>" height="30px">
-                    <span class="username"><%= locals.userLogged.firstName %> <%= locals.userLogged.lastName %></span>
+                    <span class="username"><%= locals.userLogged.fullName %>></span>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout dropdown-menu-right">
