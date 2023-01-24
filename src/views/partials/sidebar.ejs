@@ -1,112 +1,45 @@
 <aside>
-    <div id="sidebar"  class="nav-collapse ">
+    <div id="sidebar"  class="nav-collapse" style="background-color: #a83232;">
         <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
+        <ul class="sidebar-menu" id="nav-accordion" style="background-color: #a83232;">
             <li>
                 <a href="/index">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
+                    <i class="fa fa-home"></i>
+                    <span>Home</span>
                 </a>
             </li>
 
             <li class="sub-menu">
-                <a href="javascript:;" class="<%= req.originalUrl.includes('/invoices') ? 'active' : '' %>" >
-                    <i class="fa fa-file"></i>
-                    <span>Facturas</span>
-                </a>
-                <ul class="sub">
-                    <li class="<%= req.originalUrl === '/invoices/list' ? 'active' : '' %>" ><a  href="/invoices/list">Historico</a></li>
-                    <li class="<%= req.originalUrl === '/invoices/pending' ? 'active' : '' %>"><a  href="/invoices/pending">Pendientes</a></li>
-                    <% if (req.session.userCan.includes("ver_otro_sector")) { %>
-                        <li class="<%= req.originalUrl === '/invoices/otherpending' ? 'active' : '' %>"><a  href="/invoices/otherpending">En otro sector</a></li>
-                    <% } %>
-                    <% if (req.session.userCan.includes("facturas_pagar")) { %>
-                        <li class="<%= req.originalUrl === '/invoices/paylist' ? 'active' : '' %>"><a  href="/invoices/paylist">Cola de pago</a></li>
-                    <% } %>
-                </ul>
-            </li>
-
-            <% if (req.session.userCan.includes("usuarios_gestionar") || req.session.userCan.includes("roles_gestionar") || req.session.userCan.includes("permisos_gestionar")) { %>
-            <li class="sub-menu">
-                <a href="javascript:;" class="<%= req.originalUrl.includes('/users') || req.originalUrl.includes('/roles') || req.originalUrl.includes('/permissions')? 'active' : '' %>">
+                <a href="javascript:;" class="<%= req.originalUrl.includes('/users') ? 'active' : '' %>" >
                     <i class="fa fa-users"></i>
-                    <span>Usuarios</span>
+                    <span>Adm.Usuarios</span>
                 </a>
                 <ul class="sub">
-                    <% if (req.session.userCan.includes("usuarios_gestionar")) { %>
-                    <li class="<%= req.originalUrl === '/users/list' ? 'active' : '' %>" ><a  href="/users/list">Usuarios</a></li>
+                    <li class="<%= req.originalUrl === '/users/list' ? 'active' : '' %>" ><a  href="/users/list">Listado</a></li>
+                    <% if (req.session.userCan.includes("abm_users")) { %>
+                        <li class="<%= req.originalUrl === '/users/new' ? 'active' : '' %>"><a  href="/users/new">Alta Usuario</a></li>
+                        <li class="<%= req.originalUrl === '/users/pending' ? 'active' : '' %>"><a  href="/users/pending">En Proceso</a></li>
                     <% } %>
-                    <% if (req.session.userCan.includes("roles_gestionar")) { %>
-                        <li class="<%= req.originalUrl.includes('/roles') ? 'active' : '' %>" ><a  href="/roles/list">Roles</a></li>
-                    <% } %>
-                    <% if (req.session.userCan.includes("permisos_gestionar") && req.session.userCan.includes("sistema_administrar")) { %>
-                        <li class="<%= req.originalUrl.includes('/permissions') ? 'active' : '' %>"><a  href="/permissions/list">Permisos</a></i></li>
-                    <% } %>                    
                 </ul>
             </li>
-            <% } %>
-            <% if (req.session.userCan.includes("proveedores_gestionar")) { %>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="<%= req.originalUrl.includes('/suppliers') ? 'active' : '' %>">
-                        <i class="fa fa-truck"></i>
-                        <span>Proveedores</span>
-                    </a>
-                    <ul class="sub">
-                        <li class="<%= req.originalUrl === '/suppliers/list' ? 'active' : '' %>" ><a  href="/suppliers/list">Listado</a></li>
-                        <% if (req.session.userCan.includes("proveedores_crear")) { %>
-                            <li class="<%= req.originalUrl === '/suppliers/pending' ? 'active' : '' %>" ><a  href="/suppliers/pending">Pendientes de alta</a></li>
-                        <% } %>
-                    </ul>
-                </li>         
-            <% } %>
-            <% if (req.session.userCan.includes("cuentas_gestionar")) { %>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="<%= req.originalUrl.includes('/accounts')? 'active' : '' %>">
-                        <i class="fa fa-tasks"></i>
-                        <span>Cuentas</span>
-                    </a>
-                    <ul class="sub">
-                        <% if (req.session.userCan.includes("cuentas_gestionar")) { %>
-                        <li class="<%= req.originalUrl === '/accounts/list' ? 'active' : '' %>" ><a  href="/accounts/list">Cuentas</a></li>
-                        <% } %>
-                    </ul>
-                </li>
-            <% } %>
-            <% if (req.session.userCan.includes("ver_reportes")) { %>
+
             <li class="sub-menu">
-                <a href="javascript:;" class="<%= req.originalUrl.includes('/reports')? 'active' : '' %>">
-                    <i class="fa fa-list-ul"></i>
-                    <span>Reportes</span>
+                <% if (req.session.userCan.includes("system_admin")) { %>
+                <a href="javascript:;" class="<%= req.originalUrl.includes('/config') ? 'active' : '' %>" >
+                    <i class="fa fa-gears"></i>
+                    <span>Config del Sistema</span>
                 </a>
                 <ul class="sub">
-                    <li class="<%= req.originalUrl === '/reports/searchbysupplier' ? 'active' : '' %>" ><a  href="/reports/searchbysupplier">Facturas por Proveedor</a></li>
-                </ul>
+                    <li class="<%= req.originalUrl === '/config/users' ? 'active' : '' %>" ><a  href="/config/users">Usuarios</a></li>
+                        <li class="<%= req.originalUrl === '/config/roles' ? 'active' : '' %>"><a  href="/config/roles">Roles</a></li>
+                        <li class="<%= req.originalUrl === '/config/permissions' ? 'active' : '' %>"><a  href="/config/permissions">Permisos</a></li>
+                        <li class="<%= req.originalUrl === '/config/domains' ? 'active' : '' %>"><a  href="/config/domains">Mail-Dominios</a></li>
+                        <li class="<%= req.originalUrl === '/config/organizations' ? 'active' : '' %>"><a  href="/config/organizations">Empresas</a></li>
+                        <li class="<%= req.originalUrl === '/config/locations' ? 'active' : '' %>"><a  href="/config/locations">Locación</a></li>
+                        <li class="<%= req.originalUrl === '/config/departments' ? 'active' : '' %>"><a  href="/config/departments">Departamentos</a></li>
+                    </ul>
+                <% } %>
             </li>
-            <% } %>
-            <% if (req.session.userCan.includes("sistema_configuracion")) { %>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="<%= req.originalUrl.includes('/config') ? 'active' : '' %>">
-                        <i class="fa fa-cogs"></i>
-                        <span>Configuración</span>
-                    </a>
-                    <ul class="sub">
-                        <li class="<%= req.originalUrl === '/config' ? 'active' : '' %>" ><a  href="/config">Panel de Control</a></li>
-                    </ul>
-                </li>         
-            <% } %>
-            <% if (req.session.userCan.includes("log_visualizar")) { %>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="<%= req.originalUrl.includes('/userlog') || req.originalUrl.includes('/supplierlog') || req.originalUrl.includes('/invoicelog')? 'active' : '' %>">
-                        <i class="fa fa-list-alt"></i>
-                        <span>Logs</span>
-                    </a>
-                    <ul class="sub">
-                        <li class="<%= req.originalUrl === '/userslog' ? 'active' : '' %>" ><a  href="/userlog">Logs de Usuarios</a></li>
-                        <li class="<%= req.originalUrl === '/supplierslog' ? 'active' : '' %>" ><a  href="/supplierlog">Logs de Proveedores</a></li>
-                        <li class="<%= req.originalUrl === '/invoiceslog' ? 'active' : '' %>" ><a  href="/invoicelog">Logs de Facturas</a></li>
-                    </ul>
-                </li>         
-            <% } %>
         </ul>
         <!-- sidebar menu end-->
     </div>
