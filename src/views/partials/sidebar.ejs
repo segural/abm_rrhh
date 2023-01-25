@@ -25,18 +25,18 @@
 
             <li class="sub-menu">
                 <% if (req.session.userCan.includes("system_admin")) { %>
-                <a href="javascript:;" class="<%= req.originalUrl.includes('/config') ? 'active' : '' %>" >
+                <a href="javascript:;" class="<%= req.originalUrl.includes('/sysconfig') ? 'active' : '' %>" >
                     <i class="fa fa-gears"></i>
                     <span>Config del Sistema</span>
                 </a>
                 <ul class="sub">
-                    <li class="<%= req.originalUrl === '/config/users' ? 'active' : '' %>" ><a  href="/config/users">Usuarios</a></li>
-                        <li class="<%= req.originalUrl === '/config/roles' ? 'active' : '' %>"><a  href="/config/roles">Roles</a></li>
-                        <li class="<%= req.originalUrl === '/config/permissions' ? 'active' : '' %>"><a  href="/config/permissions">Permisos</a></li>
-                        <li class="<%= req.originalUrl === '/config/domains' ? 'active' : '' %>"><a  href="/config/domains">Mail-Dominios</a></li>
-                        <li class="<%= req.originalUrl === '/config/organizations' ? 'active' : '' %>"><a  href="/config/organizations">Empresas</a></li>
-                        <li class="<%= req.originalUrl === '/config/locations' ? 'active' : '' %>"><a  href="/config/locations">Locación</a></li>
-                        <li class="<%= req.originalUrl === '/config/departments' ? 'active' : '' %>"><a  href="/config/departments">Departamentos</a></li>
+                    <li class="<%= req.originalUrl === '/sysconfig/users' ? 'active' : '' %>" ><a  href="/sysconfig/users">Usuarios</a></li>
+                        <li class="<%= req.originalUrl === '/sysconfig/roles' ? 'active' : '' %>"><a  href="/sysconfig/roles">Roles</a></li>
+                        <li class="<%= req.originalUrl === '/sysconfig/permissions' ? 'active' : '' %>"><a  href="/sysconfig/permissions">Permisos</a></li>
+                        <li class="<%= req.originalUrl === '/sysconfig/domains' ? 'active' : '' %>"><a  href="/sysconfig/domains">Mail-Dominios</a></li>
+                        <li class="<%= req.originalUrl === '/sysconfig/organizations' ? 'active' : '' %>"><a  href="/sysconfig/organizations">Empresas</a></li>
+                        <li class="<%= req.originalUrl === '/sysconfig/locations' ? 'active' : '' %>"><a  href="/sysconfig/locations">Locación</a></li>
+                        <li class="<%= req.originalUrl === '/sysconfig/departments' ? 'active' : '' %>"><a  href="/sysconfig/departments">Departamentos</a></li>
                     </ul>
                 <% } %>
             </li>
