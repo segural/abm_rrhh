@@ -6,20 +6,23 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const redirectIfLogued = require("../middlewares/redirectIfLogued");
 const validateUserLogin = require("../middlewares/validateUserLogin");
 
-// Requiero el controller al que apuntan las rutas que defino maás abajo:
+// Requiero el controller al que apuntan las rutas que defino más abajo:
 const sysconfigController = require("../controllers/sysconfigController.js");
 
 // Defino las rutas, es decir que controlador y cuál de sus métodos es el que va a manejar el requerimiento
-router.get("/domains", sysconfigController.domainlist);
-router.post("/newdomain", sysconfigController.domainStore);
-router.get("/organizations", sysconfigController.organizationlist);
-router.post("/neworganization", sysconfigController.organizationStore);
-router.get("/locations", sysconfigController.locationlist);
-router.post("/newlocation", sysconfigController.locationStore);
-router.get("/departments", sysconfigController.departmentlist);
-router.post("/newdepartment", sysconfigController.departmentStore);
+// Rutas get
+router.get("/domains", authMiddleware, sysconfigController.domainlist);
+router.get("/organizations", authMiddleware, sysconfigController.organizationlist);
+router.get("/locations", authMiddleware, sysconfigController.locationlist);
+router.get("/departments", authMiddleware, sysconfigController.departmentlist);
 
-//  Rutas para: Borrar usuarios
+//Rutas post/put
+router.post("/newdomain", authMiddleware, sysconfigController.domainStore);
+router.post("/neworganization", authMiddleware, sysconfigController.organizationStore);
+router.post("/newlocation", authMiddleware, sysconfigController.locationStore);
+router.post("/newdepartment", authMiddleware, sysconfigController.departmentStore);
+
+// Rutas delete
 router.delete('/domains/:id', sysconfigController.domainDestroy);
 router.delete('/organizations/:id', sysconfigController.organizationDestroy);
 router.delete('/locations/:id', sysconfigController.locationDestroy);

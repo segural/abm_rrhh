@@ -78,6 +78,12 @@ const mainController = {
     index: async (req, res) => {
         res.render("./main/index.ejs", { req });
     },
+
+    usersLogout: (req, res) => {        
+        req.session.destroy();
+        res.cookie("rememberMe", "", {maxAge: -1});
+        res.redirect ('/');
+    }
 }
 
 module.exports = mainController;
