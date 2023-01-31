@@ -31,10 +31,12 @@ app.set("views", "./src/views/");
 //Requiero el/los archivo/s de rutas que se usarán para dirigir las paticiones:
 const mainRoutes = require("./src/routes/main.js");
 const sysconfigRoutes = require("./src/routes/sysconfig.js");
+const usersRoutes = require("./src/routes/users.js");
 
 //Indico para cada petición, el archivo de rutas que lo manejará:
 app.use("/", mainRoutes);
 app.use("/sysconfig", sysconfigRoutes);
+app.use("/users", usersRoutes);
 
 app.listen(process.env.PORT || 8000, function () {
   console.log(`Servidor corriendo en puerto ${process.env.PORT || 8000}`);
