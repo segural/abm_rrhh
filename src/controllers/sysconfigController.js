@@ -132,9 +132,9 @@ const sysconfigController = {
     if (errors.isEmpty()) {
       let reset;
       if (req.body.changePass != undefined) {
-        reset = req.body.changePass;
+        reset = true;
       } else {
-        reset = "false";
+        reset = false;
       }
       let existingUser = await db.users.findOne({
         where: {
@@ -144,7 +144,7 @@ const sysconfigController = {
       if (existingUser == undefined) {        
         let newUser = await db.users.create({
           fullName: req.body.fullName,
-          mail: req.body.email,
+          mail: req.body.mail,
           username: req.body.username,
           password: bcrypt.hashSync(req.body.password, 10),
           resetFlag: reset,
@@ -152,15 +152,37 @@ const sysconfigController = {
         });
         await newUser.addRoles(req.body.roles);
         let rolesGranted = await newUser.getRoles();
-        console.log(rolesGranted);
-        res.redirect("./sysconfig/users");
+        res.redirect("./users");
       } else {
         let roles = await db.roles.findAll();
-        return res.render("./sysconfig/users/usersList", { req, errors: { user: { msg: "Ya existe alguien registrado con ese user" } }, old: req.body });
+        let users = await db.users.findAll({
+          include: {
+            model: db.roles,
+            as: "roles",
+            include: [
+              {
+                model: db.permissions,
+                as: "permissions",
+              },
+            ],
+          },
+        });
+        return res.render("./sysconfig/users/usersList", { req, users, errors: { user: { msg: "Ya existe alguien registrado con ese user" } }, old: req.body });
       }
     } else {
-      console.log(errors);
-      return res.render("./sysconfig/users/usersList", { req, errors: errors.mapped(), old: req.body });
+      let users = await db.users.findAll({
+        include: {
+          model: db.roles,
+          as: "roles",
+          include: [
+            {
+              model: db.permissions,
+              as: "permissions",
+            },
+          ],
+        },
+      });
+      return res.render("./sysconfig/users/usersList", { req, users, errors: errors.mapped(), old: req.body });
     }
   },
 
