@@ -45,24 +45,21 @@
                 <div class="col-md-6">
                 <section class="card">
                     <header class="card-header"><i class="fa fa-pencil"></i> Editar usuario</header>
-                    <div class="card-body">
-                        <% if (locals.errors && errors.noUser) { %>
-                            <p class="feedback"><%= errors.noUser.msg %></p>
-                        <% } %>
+                    <div class="card-body">                        
                     <form action="/sysconfig/users/<%= userToEdit.id %>?_method=PUT" method="POST" id="form" novalidate class="form-horizontal tasi-form">
                         <div class="col-auto">
-                            <input type="text" name="fullName" class="form-control mb-3" id="inlineFormInput" placeholder="Nombre completo" value="<%= userToEdit.fullName %>">
                             <% if (locals.errors && errors.fullName) { %>
                                 <p class="feedback"><%= errors.fullName.msg %></p>
                             <% } %>
-                            <input type="text" name="username" class="form-control mb-3" id="inlineFormInput" placeholder="Usuario" value="<%= userToEdit.username %>">
+                            <input type="text" name="fullName" class="form-control mb-3" id="inlineFormInput" placeholder="Nombre completo" value="<%= userToEdit.fullName %>">
                             <% if (locals.errors && errors.username) { %>
                                 <p class="feedback"><%= errors.username.msg %></p>
                             <% } %>
-                            <input type="email" name="mail" class="form-control mb-4" id="inlineFormInput" placeholder="e-mail" value="<%= userToEdit.mail %>">
+                            <input type="text" name="username" class="form-control mb-3" id="inlineFormInput" placeholder="Usuario" value="<%= userToEdit.username %>">
                             <% if (locals.errors && errors.mail) { %>
                                 <p class="feedback"><%= errors.mail.msg %></p>
                             <% } %>
+                            <input type="email" name="mail" class="form-control mb-4" id="inlineFormInput" placeholder="e-mail" value="<%= userToEdit.mail %>">
                         </div>
                         
                         <div class="col-auto mb-4">
@@ -79,8 +76,8 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <label for="changePass" class="control-label col-md-4">Cambiar contraseña en el proximo logueo</label>
-                            <input type="checkbox" name="changePass" value="">
+                            <label for="changePass" class="control-label col-md-4">Blanquear y cambiar contraseña en el proximo logueo</label>
+                            <input type="checkbox" name="changePass" value="true">
                         </div>
                         <div class="card-body">
                         <a href="/sysconfig/users"><button type="button" class="btn btn-secondary">Cancelar</button></a>
