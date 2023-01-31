@@ -107,7 +107,7 @@ a:hover {
 }
 
 .modal-header {
-    background: #a83232;
+    background: #a32f40;
     color: #fff;
     border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
@@ -262,6 +262,27 @@ ul {
     box-shadow: 0 4px #d1595a;
 }
 
+/*Boton Vidt*/
+
+.btn-vidt ,
+.btn-vidt.disabled,
+.btn-vidt[disabled],
+.btn-vidt.disabled.active,
+.btn-vidt.active[disabled]{
+    background-color: #a32f40;
+    border-color: #a32f40;
+    color: #FFFFFF;
+}
+
+.btn-vidt:hover, .btn-vidt:focus, .btn-vidt:active, .btn-vidt.active, .open .dropdown-toggle.btn-vidt,
+.btn-vidt.disabled,
+.btn-vidt[disabled],
+.btn-vidt.disabled.active,
+.btn-vidt.active[disabled]{
+    background-color: #772833;
+    border-color: #772833;
+    color: #FFFFFF;
+}
 
 /*dropdown shadow*/
 
