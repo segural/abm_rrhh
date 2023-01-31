@@ -1,46 +1,46 @@
 <aside>
-    <div id="sidebar"  class="nav-collapse" style="background-color: #a83232;">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion" style="background-color: #a83232;">
-            <li>
-                <a href="/index">
-                    <i class="fa fa-home"></i>
-                    <span>Home</span>
-                </a>
-            </li>
+  <div id="sidebar" class="nav-collapse" style="background-color: #a83232">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu" id="nav-accordion" style="background-color: #a83232">
+      <li>
+        <a href="/index">
+          <i class="fa fa-home"></i>
+          <span>Home</span>
+        </a>
+      </li>
 
-            <li class="sub-menu">
-                <a href="javascript:;" class="<%= req.originalUrl.includes('/users') ? 'active' : '' %>" >
-                    <i class="fa fa-users"></i>
-                    <span>Adm.Usuarios</span>
-                </a>
-                <ul class="sub">
-                    <li class="<%= req.originalUrl === '/users/list' ? 'active' : '' %>" ><a  href="/users/list">Listado</a></li>
-                    <% if (req.session.userCan.includes("abm_users")) { %>
-                        <li class="<%= req.originalUrl === '/users/new' ? 'active' : '' %>"><a  href="/users/new">Alta Usuario</a></li>
-                        <li class="<%= req.originalUrl === '/users/pending' ? 'active' : '' %>"><a  href="/users/pending">En Proceso</a></li>
-                    <% } %>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <% if (req.session.userCan.includes("system_admin")) { %>
-                <a href="javascript:;" class="<%= req.originalUrl.includes('/sysconfig') ? 'active' : '' %>" >
-                    <i class="fa fa-gears"></i>
-                    <span>Config del Sistema</span>
-                </a>
-                <ul class="sub">
-                    <li class="<%= req.originalUrl === '/sysconfig/users' ? 'active' : '' %>" ><a  href="/sysconfig/users">Usuarios</a></li>
-                        <li class="<%= req.originalUrl === '/sysconfig/roles' ? 'active' : '' %>"><a  href="/sysconfig/roles">Roles</a></li>
-                        <li class="<%= req.originalUrl === '/sysconfig/permissions' ? 'active' : '' %>"><a  href="/sysconfig/permissions">Permisos</a></li>
-                        <li class="<%= req.originalUrl === '/sysconfig/domains' ? 'active' : '' %>"><a  href="/sysconfig/domains">Mail-Dominios</a></li>
-                        <li class="<%= req.originalUrl === '/sysconfig/organizations' ? 'active' : '' %>"><a  href="/sysconfig/organizations">Empresas</a></li>
-                        <li class="<%= req.originalUrl === '/sysconfig/locations' ? 'active' : '' %>"><a  href="/sysconfig/locations">Locación</a></li>
-                        <li class="<%= req.originalUrl === '/sysconfig/departments' ? 'active' : '' %>"><a  href="/sysconfig/departments">Departamentos</a></li>
-                    </ul>
-                <% } %>
-            </li>
+      <li class="sub-menu">
+        <a href="javascript:;" class="<%= req.originalUrl.includes('/users') ? 'active' : '' %>">
+          <i class="fa fa-users"></i>
+          <span>Adm. Usuarios</span>
+        </a>
+        <ul class="sub">
+          <li class="<%= req.originalUrl === '/users/list' ? 'active' : '' %>"><a href="/users/list">Listado</a></li>
+          <% if (req.session.userCan.includes("abm_users")) { %>
+          <li class="<%= req.originalUrl === '/users/new' ? 'active' : '' %>"><a href="/users/new">Alta Usuario</a></li>
+          <li class="<%= req.originalUrl === '/users/pending' ? 'active' : '' %>"><a href="/users/pending">En Proceso</a></li>
+          <% } %>
         </ul>
-        <!-- sidebar menu end-->
-    </div>
+      </li>
+
+      <li class="sub-menu">
+        <% if (req.session.userCan.includes("system_admin")) { %>
+        <a href="javascript:;" class="<%= req.originalUrl.includes('/sysconfig') ? 'active' : '' %>">
+          <i class="fa fa-gears"></i>
+          <span>Config del Sistema</span>
+        </a>
+        <ul class="sub">
+          <li class="<%= req.originalUrl === '/sysconfig/users' ? 'active' : '' %>"><a href="/sysconfig/users">Usuarios</a></li>
+          <li class="<%= req.originalUrl === '/sysconfig/roles' ? 'active' : '' %>"><a href="/sysconfig/roles">Roles</a></li>
+          <li class="<%= req.originalUrl === '/sysconfig/permissions' ? 'active' : '' %>"><a href="/sysconfig/permissions">Permisos</a></li>
+          <li class="<%= req.originalUrl === '/sysconfig/domains' ? 'active' : '' %>"><a href="/sysconfig/domains">Mail-Dominios</a></li>
+          <li class="<%= req.originalUrl === '/sysconfig/organizations' ? 'active' : '' %>"><a href="/sysconfig/organizations">Empresas</a></li>
+          <li class="<%= req.originalUrl === '/sysconfig/locations' ? 'active' : '' %>"><a href="/sysconfig/locations">Locación</a></li>
+          <li class="<%= req.originalUrl === '/sysconfig/departments' ? 'active' : '' %>"><a href="/sysconfig/departments">Departamentos</a></li>
+        </ul>
+        <% } %>
+      </li>
+    </ul>
+    <!-- sidebar menu end-->
+  </div>
 </aside>

@@ -26,9 +26,11 @@
     "nodemailer": "^6.7.0",
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
-    "sequelize": "^6.7.0",
-    "sequelize-cli": "^6.2.0",
+    "sequelize": "^6.28.0",
     "toastr": "^2.1.4",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
   }
 }

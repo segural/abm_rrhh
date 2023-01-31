@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(methodOverride('_method')); // Para poder pisar el method="POST" en el formulario por PUT y DELETE
-app.use(session({secret: "adama", resave:false, saveUninitialized:false}));
+app.use(methodOverride("_method")); // Para poder pisar el method="POST" en el formulario por PUT y DELETE
+app.use(session({ secret: "adama", resave: false, saveUninitialized: false }));
 
 app.use(userLoggedMiddleware);
 // app.use(rememberMeMiddleware);
