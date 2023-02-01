@@ -43,21 +43,27 @@
                         <div class="card-body">
                             <form>
                                 <div class="form-group row" style="padding: 0 15px;">
-                                    <label class="col-sm-2 col-form-label">Nombres</label>
+                                    <label class="col-sm-2 col-form-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="firstName" placeholder="Nombres">
+                                        <input type="text" class="form-control" name="firstName">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Apellido</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="lastName" placeholder="Apellido">
+                                        <input type="text" class="form-control" name="lastName">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Posición</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="position" placeholder="Posición">
+                                        <input type="text" class="form-control" name="position">
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Día de nacimiento</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="birthdate">
                                     </div>
                                 </div>
                                 <fieldset class="form-group">
@@ -65,13 +71,13 @@
                                         <legend class="col-form-label col-sm-2 pt-0">Tipo de usuario</legend>
                                         <div class="col-sm-10">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="external" value="0" checked>
+                                                <input class="form-check-input" type="radio" name="external" id="external0" value="0" onclick="externaluser('external0', 'external1', 'userdate', 'usermail', this)" checked>
                                                 <label class="form-check-label">
                                                     Personal de nómina
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="external" value="1">
+                                                <input class="form-check-input" type="radio" name="external" id="external1" value="1" onclick="externaluser('external0', 'external1', 'userdate', 'usermail', this)">
                                                 <label class="form-check-label">
                                                     Personal externo
                                                 </label>
@@ -79,18 +85,24 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <div class="form-group row" style="padding-left: 15px;">
+                                <div class="form-group row" style="padding: 0 15px" id="userdate" hidden>
+                                    <label class="col-sm-2 col-form-label">Vencimiento de cuenta</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="userduedate" >
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding-left: 15px;" id="usermail" hidden>
                                     <div class="col-sm-2">Mail corporativo</div>
                                     <div class="col-sm-10">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="gridCheck1">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck1" onclick="nonmail('gridCheck1', 'showdomain', this)">
                                             <label class="form-check-label" for="gridCheck1">
                                                 No necesita correo corporativo
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row" style="padding: 0 15px;">
+                                <div class="form-group row" style="padding: 0 15px;" id="showdomain">
                                     <label class="col-sm-2 col-form-label">Dominio para mail</label>
                                     <div class="col-sm-10">
                                         <select type="text" class="form-control" name="maildomain">
@@ -134,6 +146,17 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Jefe Directo</label>
+                                    <div class="col-sm-10">
+                                        <select type="text" class="form-control" name="maildomain">
+                                            <option disabled selected></option>
+                                            <% for (chief of chiefs) {%>
+                                            <option value="<%= chief.id %>"> <%= chief.fullName %></option>
+                                            <% } %> 
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <div style="margin: auto; padding-top: 15px;">
                                         <button type="submit" class="btn btn-danger">Enviar</button>
@@ -164,6 +187,28 @@
 
     <!--common script for all pages-->
     <script src="/js/common-scripts.js"></script>
+
+    <script>
+        function externaluser(external0, external1, userdate, usermail, elementValue) {
+        if (document.getElementById(external1).checked) {
+            document.getElementById(userdate).removeAttribute("hidden"),
+            document.getElementById(usermail).removeAttribute("hidden")
+        } else if (document.getElementById(external0).checked) {
+            document.getElementById(userdate).hidden = true,
+            document.getElementById(usermail).hidden = true
+        };
+        }
+    </script>
+
+    <script>
+        function nonmail(gridCheck1, showdomain, elementValue) {
+        if (document.getElementById(gridCheck1).checked) {
+            document.getElementById(showdomain).hidden = true
+        } else {
+            document.getElementById(showdomain).removeAttribute("hidden")
+        };
+        }
+    </script>
 
 </body>
 </html>

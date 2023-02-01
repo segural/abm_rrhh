@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     external: DataTypes.BOOLEAN,
     maildomain: DataTypes.STRING,
     userduedate: DataTypes.DATE,
-    mail: DataTypes.STRING
+    mail: DataTypes.STRING,
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'abmusers',

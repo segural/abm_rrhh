@@ -78,6 +78,26 @@ const sysconfigController = {
     res.redirect("/sysconfig/departments");
   },
 
+  chieflist: async (req, res) => {
+    let chiefs = await db.chiefs.findAll();
+    res.render("./sysconfig/chiefList.ejs", { req, chiefs });
+  },
+
+  chiefStore: async (req, res) => {
+    await db.chiefs.create({
+      userName: req.body.username,
+      fullName: req.body.fullname,
+      email: req.body.email,
+    });
+    res.redirect("/sysconfig/chiefs");
+  },
+
+  chiefDestroy: async (req, res) => {
+    let chiefToDelete = await db.chiefs.findByPk(req.params.id);
+    await chiefToDelete.destroy();
+    res.redirect("/sysconfig/chiefs");
+  },
+
   // ABM de usuarios
   
   userList: async (req, res) => {

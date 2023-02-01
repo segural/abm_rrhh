@@ -15,7 +15,8 @@ const userController = {
         let organizations = await db.organizations.findAll();
         let locations = await db.locations.findAll();
         let departments = await db.departments.findAll();
-        res.render("./users/newUser.ejs", { req, domains, departments, locations, organizations });
+        let chiefs = await db.chiefs.findAll();
+        res.render("./users/newUser.ejs", { req, domains, departments, locations, organizations, chiefs });
     },
 
     userStore: async (req, res) => {
