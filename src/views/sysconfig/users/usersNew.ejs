@@ -49,14 +49,29 @@
                     <div class="card-body">
                     <form action="/sysconfig/users" method="POST" id="form" novalidate class="form-horizontal tasi-form">
                         <div class="col-auto">
-                            <input type="text" name="fullName" class="form-control mb-3" id="inlineFormInput" placeholder="Nombre completo">
-                            <input type="text" name="username" class="form-control mb-3" id="inlineFormInput" placeholder="Usuario">
-                            <input type="email" name="mail" class="form-control mb-3" id="inlineFormInput" placeholder="e-mail">
-                            <input type="password" name="password" class="form-control mb-4" placeholder="Contraseña" id="password">
+                            <% if (locals.errors && errors.fullName) { %>
+                                <p class="feedback"><%= errors.fullName.msg %></p>
+                            <% } %>
+                            <input type="text" name="fullName" class="form-control mb-3" id="inlineFormInput" placeholder="Nombre completo" value="<%= locals.old && old.fullName %>">
+                            <% if (locals.errors && errors.username) { %>
+                                <p class="feedback"><%= errors.username.msg %></p>
+                            <% } %>
+                            <input type="text" name="username" class="form-control mb-3" id="inlineFormInput" placeholder="Usuario" value="<%= locals.old && old.username %>">
+                            <% if (locals.errors && errors.mail) { %>
+                                <p class="feedback"><%= errors.mail.msg %></p>
+                            <% } %>
+                            <input type="email" name="mail" class="form-control mb-3" id="inlineFormInput" placeholder="e-mail" value="<%= locals.old && old.mail %>">
+                            <% if (locals.errors && errors.password) { %>
+                                <p class="feedback"><%= errors.password.msg %></p>
+                            <% } %>
+                            <input type="password" name="password" class="form-control mb-4" placeholder="Contraseña" id="password" value="<%= locals.old && old.password %>">
                         </div>
                         
                         <div class="col-auto mb-4">
                             <label class="control-label col-md-3">Roles asociados</label>
+                            <% if (locals.errors && errors.roles) { %>
+                                <p class="feedback"><%= errors.roles.msg %></p>
+                            <% } %>
                             <div class="col-md-9">
                                 <select multiple="multiple" class="multi-select" id="my_multi_select1" name="roles">
                                 <% for( role of roles ) { %>

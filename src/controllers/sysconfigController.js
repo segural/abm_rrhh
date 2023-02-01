@@ -171,38 +171,14 @@ const sysconfigController = {
           active: true,
         });
         await newUser.addRoles(req.body.roles);
-        let rolesGranted = await newUser.getRoles();
         res.redirect("./users");
       } else {
         let roles = await db.roles.findAll();
-        let users = await db.users.findAll({
-          include: {
-            model: db.roles,
-            as: "roles",
-            include: [
-              {
-                model: db.permissions,
-                as: "permissions",
-              },
-            ],
-          },
-        });
-        return res.render("./sysconfig/users/usersList", { req, users, errors: { user: { msg: "Ya existe alguien registrado con ese user" } }, old: req.body });
+        return res.render("./sysconfig/users/usersNew", { req, roles, errors: { username: { msg: "Ya existe alguien registrado con ese user" } }, old: req.body });
       }
     } else {
-      let users = await db.users.findAll({
-        include: {
-          model: db.roles,
-          as: "roles",
-          include: [
-            {
-              model: db.permissions,
-              as: "permissions",
-            },
-          ],
-        },
-      });
-      return res.render("./sysconfig/users/usersList", { req, users, errors: errors.mapped(), old: req.body });
+      let roles = await db.roles.findAll();
+      return res.render("./sysconfig/users/usersNew", { req, roles, errors: errors.mapped(), old: req.body });
     }
   },
 
@@ -229,76 +205,26 @@ const sysconfigController = {
     if(errors.isEmpty()){        
         let reset;
         let newpass;
-        let pass;       
+        let pass;        
         if(req.body.changePass != undefined){
-            reset = req.body.changePass
+            reset = true;
             newpass = 'Ab123456'
             pass = bcrypt.hashSync(newpass, 10)
             // await userToEdit.createLog({action:'user_password_reset',userId: req.session.userLogged.id})
         } else {
-            reset = 'false'
+            reset = false
             pass = userToEdit.password
         };
-        sequelize
-          .authenticate()
-          .then(() => {
-            console.log('Connection has been established successfully.');
-          })
-          .catch(err => {
-            console.error('Unable to connect to the database:', err);
-          });
         await userToEdit.update ({
-            fullName: req.body.fullName,
-            mail: req.body.mail,
-            username: req.body.username,
-            resetFlag: reset,
-            active: true,
-            password: pass,
-            });
+          fullName: req.body.fullName,
+          mail: req.body.mail,
+          username: req.body.username,
+          resetFlag: reset,
+          active: true,
+          password: pass,
+          });
         await userToEdit.setRoles(req.body.roles);
-
-        // Inicio log de cambios
-        
-        // let previousRoles = await db.Roles.findAll(                
-        //     {
-        //         where: {
-        //             id: selectedRoles // Same as using `id: { [Op.in]: [1,2,3] }`
-        //         }
-        //     }
-        // );
-
-        // let previousRolesNames =[];
-        // previousRoles.forEach((role) => {previousRolesNames.push(role.name)});
-
-        // let currentRoles = await db.Roles.findAll(                
-        //     {
-        //         where: {
-        //             id: req.body.roles // Same as using `id: { [Op.in]: [1,2,3] }`
-        //         }
-        //     }
-        // );
-
-        // let currentRolesNames =[];
-        // currentRoles.forEach((role) => {currentRolesNames.push(role.name)});
-
-        // let rolesGranted = currentRolesNames.filter( role => { return !previousRolesNames.includes(role)});
-        // console.log(rolesGranted)
-
-        // for (role of rolesGranted) {
-        //     await userToEdit.createLog({action:'user_role_' + role + '_granted',userId: req.session.userLogged.id})
-        // };
-
-        // let rolesRemoved = previousRolesNames.filter( role => { return !currentRolesNames.includes(role)});
-        // console.log(rolesRemoved)
-
-        // for (role of rolesRemoved) {
-        //     await userToEdit.createLog({action:'user_role_' + role + '_removed',userId: req.session.userLogged.id})
-        // };
-
-        // Fin log de cambios
-
         res.redirect('/sysconfig/users');
-        
     } else{
         return res.render ('./sysconfig/users/usersEdit', {req, errors:errors.mapped(), userToEdit, roles, selectedRoles});
     };
