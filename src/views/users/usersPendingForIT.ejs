@@ -10,15 +10,21 @@
 
     <title>ABM - Usuarios</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-reset.css" rel="stylesheet">
-    <!--external css-->
-    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
-    <!-- Custom styles for this template -->
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/style-responsive.css" rel="stylesheet" />
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap-reset.css" rel="stylesheet">
+        
+        <!--external css-->
+        <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    
+        <!--dynamic table-->
+        <link href="/assets/advanced-datatable/media/css/demo_page.css" rel="stylesheet" />
+        <link href="/assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/assets/data-tables/DT_bootstrap.css" />
+        
+        <!-- Custom styles for this template -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/style-responsive.css" rel="stylesheet" />    
 </head>
 <body>
 
@@ -36,7 +42,7 @@
             <section class="wrapper">
                 <!-- page start-->
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-lg-6" style="margin: auto;">
                         <section class="card">
                             <header class="card-header">
                                 <i class="fa fa-users "></i> Listado de Usuarios Pendientes de Alta
@@ -69,8 +75,8 @@
                                                     <% } %> 
                                                 </td>
                                                 <td class="center hidden-phone">
-                                                        <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
-                                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                                        <a href="/users/edit/<%= user.id %>">
+                                                            <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></button>
                                                         </a>
                                                     <!-- Modal -->
                                                         <div class="modal fade " id="deleteModal-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

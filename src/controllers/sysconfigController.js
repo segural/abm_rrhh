@@ -173,7 +173,7 @@ const sysconfigController = {
           active: true,
         });
         await newUser.addRoles(req.body.roles);
-        res.redirect("./users");
+        res.redirect("./intusers");
       } else {
         let roles = await db.roles.findAll();
         return res.render("./sysconfig/users/usersNew", { req, roles, errors: { username: { msg: "Ya existe alguien registrado con ese user" } }, old: req.body });
@@ -226,7 +226,7 @@ const sysconfigController = {
           password: pass,
           });
         await userToEdit.setRoles(req.body.roles);
-        res.redirect('/sysconfig/users');
+        res.redirect('/sysconfig/intusers');
     } else{
         return res.render ('./sysconfig/users/usersEdit', {req, errors:errors.mapped(), userToEdit, roles, selectedRoles});
     };
@@ -241,7 +241,7 @@ const sysconfigController = {
       await userToEdit.update({ active: true });
       // await userToEdit.createLog({ action: "user_enabled", userId: req.session.userLogged.id });
     }
-    res.redirect("/sysconfig/users");
+    res.redirect("/sysconfig/intusers");
   },
 
   userDestroy: async (req, res) => {

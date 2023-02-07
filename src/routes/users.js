@@ -16,6 +16,7 @@ router.get("/list", authMiddleware, userController.userList);
 router.get("/new", authMiddleware, userController.newUser);
 router.get("/pending", authMiddleware, userController.userPending);
 router.get("/pendingit", authMiddleware, userController.userPendingIt);
+router.get("/edit/:id", authMiddleware, userController.userEdit);
 
 //Rutas post/put
 router.post("/newuser", userController.userStore);

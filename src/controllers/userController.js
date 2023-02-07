@@ -19,16 +19,16 @@ const userController = {
         let users = await db.abmusers.findAll()
         res.render("./users/usersPending.ejs", { req, users });
     },
-
+    
     userPendingIt: async (req, res) => {
         let users = await db.abmusers.findAll({
             where:{
                 status: "it"
             }
         })
-        res.render("./users/usersPending.ejs", { req, users });
+        res.render("./users/usersPendingForIT.ejs", { req, users });
     },
-
+    
     newUser: async (req, res) => {
         let domains = await db.domains.findAll();
         let organizations = await db.organizations.findAll();
@@ -37,7 +37,7 @@ const userController = {
         let chiefs = await db.chiefs.findAll();
         res.render("./users/newUser.ejs", { req, domains, departments, locations, organizations, chiefs });
     },
-
+    
     userStore: async (req, res) => {
         let domain = null;
         if (req.body.maildomain != undefined){
@@ -66,6 +66,15 @@ const userController = {
             status: "it"
         })
         res.redirect('/users/list');
+    },
+    
+    userEdit: async (req, res) => {
+        let user = await db.abmusers.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        res.render("./users/usersEdit.ejs", { req, user });
     },
 
     usersDestroy: async (req, res) => {

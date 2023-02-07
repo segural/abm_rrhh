@@ -27,7 +27,7 @@ router.get("/chiefs", authMiddleware, sysconfigController.chieflist);
 router.get("/users/new", authMiddleware, sysconfigController.userNew);
 router.get("/users/:id/edit", authMiddleware, sysconfigController.userEdit);
 router.get("/users/:id/toggle", sysconfigController.userToggle);
-router.get("/users", authMiddleware, sysconfigController.userList);
+router.get("/intusers", authMiddleware, sysconfigController.userList);
 router.get("/roles/new", authMiddleware, sysconfigController.roleNew);
 router.get("/roles/:id/edit", authMiddleware, sysconfigController.roleEdit);
 router.get("/roles", authMiddleware, sysconfigController.roleList);
