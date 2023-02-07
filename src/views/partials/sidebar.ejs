@@ -17,8 +17,10 @@
         <ul class="sub">
           <li class="<%= req.originalUrl === '/users/list' ? 'active' : '' %>"><a href="/users/list">Listado</a></li>
           <% if (req.session.userCan.includes("abm_users")) { %>
-          <li class="<%= req.originalUrl === '/users/new' ? 'active' : '' %>"><a href="/users/new">Alta Usuario</a></li>
-          <li class="<%= req.originalUrl === '/users/pending' ? 'active' : '' %>"><a href="/users/pending">En Proceso</a></li>
+            <% if (req.session.userCan.includes("usuarios_gestionar")) {%> 
+              <li class="<%= req.originalUrl === '/users/pendingit' ? 'active' : '' %>"><a href="/users/pendingit">Alta Usuario - IT</a></li>
+            <% } %> 
+              <li class="<%= req.originalUrl === '/users/pending' ? 'active' : '' %>"><a href="/users/pending">En Proceso</a></li>
           <% } %>
         </ul>
       </li>

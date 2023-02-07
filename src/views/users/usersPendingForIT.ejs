@@ -39,14 +39,13 @@
                     <div class="col-sm-12">
                         <section class="card">
                             <header class="card-header">
-                                <i class="fa fa-users "></i> Listado de Usuarios de red
+                                <i class="fa fa-users "></i> Listado de Usuarios Pendientes de Alta
                             <span class="tools pull-right">
                                 <a href="javascript:;" class="fa fa-chevron-down"></a>
                                 <a href="javascript:;" class="fa fa-times"></a>
                             </span>
                             </header>
                         <div class="card-body table-responsive">
-                            <a href="/users/new"><button type="button" class="btn btn-vidt" style="margin-bottom: 15px;">Nuevo Usuario</button></a>
                             <div class="adv-table" style="max-width: 1000px;">
                                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                                     <thead>
@@ -54,16 +53,21 @@
                                             <th>Nombre Completo</th>
                                             <th>Posición</th>
                                             <th>Departamento</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% for( user of users ) { %>
-                                            <% if (user.status == "ok") {%> 
+                                            <% if (user.status != "ok") {%> 
                                             <tr class="gradeX">
                                                 <td><%= user.firstName %> <%= user.lastName %></td>
                                                 <td><%= user.position %> </td>
                                                 <td><%= user.department %> </td>
+                                                <td> <% if (user.status == "it") {%>  
+                                                    <span class="badge badge-secondary label-mini">Pendiente IT</span>
+                                                    <% } %> 
+                                                </td>
                                                 <td class="center hidden-phone">
                                                         <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
                                                             <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
@@ -100,6 +104,7 @@
                                             <th>Nombre Completo</th>
                                             <th>Posición</th>
                                             <th>Departamento</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>

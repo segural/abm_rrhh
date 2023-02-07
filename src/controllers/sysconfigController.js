@@ -80,7 +80,8 @@ const sysconfigController = {
 
   chieflist: async (req, res) => {
     let chiefs = await db.chiefs.findAll();
-    res.render("./sysconfig/chiefList.ejs", { req, chiefs });
+    let departments = await db.departments.findAll();
+    res.render("./sysconfig/chiefList.ejs", { req, chiefs, departments });
   },
 
   chiefStore: async (req, res) => {
@@ -88,6 +89,7 @@ const sysconfigController = {
       userName: req.body.username,
       fullName: req.body.fullname,
       email: req.body.email,
+      department: req.body.dpto,
     });
     res.redirect("/sysconfig/chiefs");
   },

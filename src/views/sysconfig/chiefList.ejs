@@ -59,6 +59,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nombre Completo</th>
+                                            <th>Departamento</th>
                                             <th>Usuario</th>
                                             <th>E-Mail</th>
                                             <th>Acciones</th>
@@ -68,6 +69,7 @@
                                         <% for( chief of chiefs ) { %>
                                             <tr class="gradeX">
                                                 <td><%= chief.fullName %> </td>
+                                                <td><%= chief.department %> </td>
                                                 <td><%= chief.userName %> </td>
                                                 <td><%= chief.email %> </td>
                                                 <td class="center hidden-phone">
@@ -104,6 +106,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>Nombre Completo</th>
+                                            <th>Departamento</th>
                                             <th>Usuario</th>
                                             <th>E-Mail</th>
                                             <th>Acciones</th>
@@ -130,7 +133,14 @@
                                         <input class="form-control" type="text" name="username" id="username" required></div>
                                         <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Correo Electrónico:</span>
                                         <input class="form-control" type="email" name="email" id="email" required></div>
-                                    </div>
+                                        <div class="col-lg-8" style="margin-top: 8px; margin-bottom: 8px;" id="number"><span class="px-3 py-2">Area que lidera:</span>
+                                            <select type="text" class="form-control" name="dpto">
+                                                <option disabled selected></option>
+                                                <% for (department of departments) {%>
+                                                <option value="<%= department.name %>"> <%= department.name %></option>
+                                                <% } %> 
+                                            </select>
+                                        </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancelar</button>
                                         <button type="submit" class="btn btn-primary">Enviar</button>

@@ -6,8 +6,27 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 
 const userController = {
-    userList: (req, res) => {
-        res.render("./users/usersList.ejs", { req });
+    userList: async (req, res) => {
+        let users = await db.abmusers.findAll({
+            where:{
+                status:"ok"
+            },
+        })
+        res.render("./users/usersList.ejs", { req, users });
+    },
+
+    userPending: async (req, res) => {
+        let users = await db.abmusers.findAll()
+        res.render("./users/usersPending.ejs", { req, users });
+    },
+
+    userPendingIt: async (req, res) => {
+        let users = await db.abmusers.findAll({
+            where:{
+                status: "it"
+            }
+        })
+        res.render("./users/usersPending.ejs", { req, users });
     },
 
     newUser: async (req, res) => {
@@ -20,9 +39,40 @@ const userController = {
     },
 
     userStore: async (req, res) => {
-        res.render("./main/index.ejs", { req });
+        let domain = null;
+        if (req.body.maildomain != undefined){
+            domain = req.body.maildomain
+        };
+        let external = null;
+        if (req.body.external != undefined){
+            external = req.body.external
+        };
+        let newuser = await db.abmusers.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            position: req.body.position,
+            location: req.body.location,
+            phone: req.body.phone,
+            birthday: req.body.birthdate,
+            iphone: null,
+            department: req.body.department,
+            organization: req.body.organization,
+            chief: req.body.chief,
+            username: null,
+            external: external,
+            maildomain: domain,
+            userduedate: req.body.userduedate,
+            mail: null,
+            status: "it"
+        })
+        res.redirect('/users/list');
     },
 
+    usersDestroy: async (req, res) => {
+        let userToDelete = await db.abmusers.findByPk(req.params.id);
+        await userToDelete.destroy();
+        res.redirect('/users/list');
+    },
 }
 
 module.exports = userController;

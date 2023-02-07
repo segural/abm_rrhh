@@ -41,29 +41,29 @@
                             Alta usuario de red
                         </header>
                         <div class="card-body">
-                            <form>
+                            <form action="/users/newuser" method="POST" id="new-user">
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="firstName">
+                                        <input type="text" class="form-control" name="firstName" required>
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Apellido</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="lastName">
+                                        <input type="text" class="form-control" name="lastName" required>
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Posición</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="position">
+                                        <input type="text" class="form-control" name="position" required>
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Día de nacimiento</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="birthdate">
+                                        <input type="date" class="form-control" name="birthdate" required>
                                     </div>
                                 </div>
                                 <fieldset class="form-group">
@@ -88,7 +88,7 @@
                                 <div class="form-group row" style="padding: 0 15px" id="userdate" hidden>
                                     <label class="col-sm-2 col-form-label">Vencimiento de cuenta</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="userduedate" >
+                                        <input type="date" class="form-control" name="userduedate" value="9999-12-31">
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding-left: 15px;" id="usermail" hidden>
@@ -105,7 +105,7 @@
                                 <div class="form-group row" style="padding: 0 15px;" id="showdomain">
                                     <label class="col-sm-2 col-form-label">Dominio para mail</label>
                                     <div class="col-sm-10">
-                                        <select type="text" class="form-control" name="maildomain">
+                                        <select type="text" class="form-control" name="maildomain" required>
                                             <option disabled selected></option>
                                             <% for (domain of domains) {%>
                                             <option value="<%= domain.domainName %>"> @<%= domain.domainName %></option>
@@ -116,7 +116,7 @@
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Empresa</label>
                                     <div class="col-sm-10">
-                                        <select type="text" class="form-control" name="maildomain">
+                                        <select type="text" class="form-control" name="organization" required>
                                             <option disabled selected></option>
                                             <% for (organization of organizations) {%>
                                             <option value="<%= organization.name %>"> <%= organization.name %></option>
@@ -127,7 +127,7 @@
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Centro de Atención</label>
                                     <div class="col-sm-10">
-                                        <select type="text" class="form-control" name="maildomain">
+                                        <select type="text" class="form-control" name="location" required>
                                             <option disabled selected></option>
                                             <% for (location of locations) {%>
                                             <option value="<%= location.name %>"> <%= location.name %></option>
@@ -136,9 +136,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Teléfono externo:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" name="phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Departamento</label>
                                     <div class="col-sm-10">
-                                        <select type="text" class="form-control" name="maildomain">
+                                        <select type="text" class="form-control" name="department" required>
                                             <option disabled selected></option>
                                             <% for (department of departments) {%>
                                             <option value="<%= department.name %>"> <%= department.name %></option>
@@ -149,10 +155,10 @@
                                 <div class="form-group row" style="padding: 0 15px;">
                                     <label class="col-sm-2 col-form-label">Jefe Directo</label>
                                     <div class="col-sm-10">
-                                        <select type="text" class="form-control" name="maildomain">
+                                        <select type="text" class="form-control" name="chief" required>
                                             <option disabled selected></option>
                                             <% for (chief of chiefs) {%>
-                                            <option value="<%= chief.id %>"> <%= chief.fullName %></option>
+                                            <option value="<%= chief.fullName %>"> <%= chief.fullName %> (<%= chief.department %>) </option>
                                             <% } %> 
                                         </select>
                                     </div>
