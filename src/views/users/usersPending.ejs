@@ -72,10 +72,12 @@
                                                 <td><%= user.department %> </td>
                                                 <td> 
                                                     <% if (user.status == "it") {%>  
-                                                    <span class="badge badge-secondary label-mini">Pendiente IT</span>
+                                                    <span class="badge badge-secondary label-mini">Pendiente Alta IT</span>
                                                     <% } else if (user.status == "chief") {%>  
                                                     <span class="badge badge-primary label-mini">Pendiente Jefe</span>
-                                                    <% } %> 
+                                                    <% } else if (user.status == "it_disable") {%>
+                                                        <span class="badge badge-danger label-mini">Pendiente Baja IT</span>
+                                                    <% } %>
                                                 </td>
                                                 <td class="center hidden-phone">
                                                         <a data-toggle="modal" href="#deleteModal-<%= user.id %>">

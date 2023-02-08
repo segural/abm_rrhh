@@ -23,7 +23,7 @@ const userController = {
     userPendingIt: async (req, res) => {
         let users = await db.abmusers.findAll({
             where:{
-                status: "it"
+                [Op.or]: [{status: "it"}, {status:"it_disable"}]
             }
         })
         res.render("./users/usersPendingForIT.ejs", { req, users });
@@ -68,6 +68,15 @@ const userController = {
         res.redirect('/users/list');
     },
     
+    userDetail: async (req, res) => {
+        let user = await db.abmusers.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        res.render("./users/usersDetail.ejs", { req, user });
+    },
+
     userEdit: async (req, res) => {
         let user = await db.abmusers.findOne({
             where:{
@@ -77,6 +86,29 @@ const userController = {
         res.render("./users/usersEdit.ejs", { req, user });
     },
 
+    userCreated: async (req, res) => {
+        let user = await db.abmusers.findByPk(req.params.id);
+        let phone = null;
+        if (req.body.ipphone != undefined) {
+            phone = req.body.ipphone
+        };
+        await user.update({ 
+            username: req.body.username,
+            mail: req.body.email,
+            ipphone: phone,
+            status: "ok"
+        });
+        res.render("./users/usersDetail.ejs", { req, user });
+    },
+
+    userDisabled: async (req, res) => {
+        let userDisabled = await db.abmusers.findByPk(req.params.id);
+        await userDisabled.update({
+            status: "it_disable"
+        });
+        res.redirect('/users/list')
+    },
+    
     usersDestroy: async (req, res) => {
         let userToDelete = await db.abmusers.findByPk(req.params.id);
         await userToDelete.destroy();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-02-2023 a las 17:47:49
+-- Tiempo de generación: 08-02-2023 a las 19:44:53
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -49,6 +49,16 @@ CREATE TABLE `abmusers` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `abmusers`
+--
+
+INSERT INTO `abmusers` (`id`, `firstName`, `lastName`, `position`, `location`, `phone`, `birthday`, `ipphone`, `department`, `organization`, `chief`, `username`, `external`, `maildomain`, `userduedate`, `mail`, `status`, `createdAt`, `updatedAt`) VALUES
+(4, 'Juan', 'Perez', 'Fisico', 'Vidt', 52786004, '1985-02-25 00:00:00', 56895, 'Area Física', 'Vidt CentroMedico SRL', 'Silvio Arbiser', 'perezj', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'juan.perez@rtp.com.ar', 'it_disable', '2023-02-01 19:46:47', '2023-02-08 19:27:07'),
+(5, 'Luciano', 'Segura', 'IT', 'Billinghurst', 55330876, '1979-09-21 00:00:00', NULL, 'Sistemas', 'Vidt CentroMedico SRL', 'Luciano Segura', 'segural', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'luciano.segura@rtp.com.ar', 'ok', '2023-02-01 19:59:38', '2023-02-01 19:59:38'),
+(6, 'Prueba', 'Probando', 'Compras', 'Vidt', 56985645, '1986-02-15 00:00:00', NULL, 'Area Médica', 'Terapia Radiante SRL', 'Jorge Chiozza', NULL, 0, 'redcio.com.ar', '9999-12-31 00:00:00', NULL, 'chief', '2023-02-07 18:33:29', '2023-02-07 18:33:29'),
+(7, 'Manda', 'Lorian', 'Recepción', 'Vidt', 51992199, '1999-02-25 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-08 19:33:09', '2023-02-08 19:33:09');
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +70,7 @@ CREATE TABLE `chiefs` (
   `userName` varchar(255) DEFAULT NULL,
   `fullName` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -68,9 +79,11 @@ CREATE TABLE `chiefs` (
 -- Volcado de datos para la tabla `chiefs`
 --
 
-INSERT INTO `chiefs` (`id`, `userName`, `fullName`, `email`, `createdAt`, `updatedAt`) VALUES
-(7, 'segural', 'Luciano Segura', 'luciano.segura@rtp.com.ar', '2023-01-31 20:36:32', '2023-01-31 20:36:32'),
-(8, 'cuellard', 'Delia Cuellar', 'delia.cuellar@rtp.com.ar', '2023-01-31 20:36:53', '2023-01-31 20:36:53');
+INSERT INTO `chiefs` (`id`, `userName`, `fullName`, `email`, `department`, `createdAt`, `updatedAt`) VALUES
+(7, 'segural', 'Luciano Segura', 'luciano.segura@rtp.com.ar', 'Sistemas', '2023-01-31 20:36:32', '2023-01-31 20:36:32'),
+(8, 'cuellard', 'Delia Cuellar', 'delia.cuellar@rtp.com.ar', 'Operaciones', '2023-01-31 20:36:53', '2023-01-31 20:36:53'),
+(9, 'arbisers', 'Silvio Arbiser', 'silvio.arbiser@rtp.com.ar', 'Area Física', '2023-02-01 17:59:04', '2023-02-01 17:59:04'),
+(10, 'chiozzaj', 'Jorge Chiozza', 'jorge.chiozza@vidtcm.com.ar', 'Area Médica', '2023-02-08 19:41:24', '2023-02-08 19:41:24');
 
 -- --------------------------------------------------------
 
@@ -92,7 +105,8 @@ CREATE TABLE `departments` (
 INSERT INTO `departments` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
 (2, 'Area Física', '2023-01-26 21:19:49', '2023-01-26 21:19:49'),
 (3, 'Area Médica', '2023-01-26 21:19:55', '2023-01-26 21:19:55'),
-(4, 'Sistemas', '2023-01-26 21:20:01', '2023-01-26 21:20:01');
+(4, 'Sistemas', '2023-01-26 21:20:01', '2023-01-26 21:20:01'),
+(6, 'Operaciones', '2023-02-08 19:39:55', '2023-02-08 19:39:55');
 
 -- --------------------------------------------------------
 
@@ -135,7 +149,9 @@ CREATE TABLE `locations` (
 
 INSERT INTO `locations` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
 (1, 'Billinghurst', '2023-01-26 21:19:17', '2023-01-26 21:19:17'),
-(2, 'Vidt', '2023-01-26 21:19:21', '2023-01-26 21:19:21');
+(2, 'Vidt', '2023-01-26 21:19:21', '2023-01-26 21:19:21'),
+(3, 'Hospital Español', '2023-02-08 19:36:38', '2023-02-08 19:36:38'),
+(4, 'La Plata - Terapia Radiante', '2023-02-08 19:37:07', '2023-02-08 19:37:07');
 
 -- --------------------------------------------------------
 
@@ -156,7 +172,8 @@ CREATE TABLE `organizations` (
 
 INSERT INTO `organizations` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
 (1, 'Vidt CentroMedico SRL', '2023-01-26 21:18:59', '2023-01-26 21:18:59'),
-(2, 'Terapia Radiante SRL', '2023-01-26 21:19:08', '2023-01-26 21:19:08');
+(2, 'Terapia Radiante SRL', '2023-01-26 21:19:08', '2023-01-26 21:19:08'),
+(3, 'Ceditrin SRL', '2023-02-08 19:36:26', '2023-02-08 19:36:26');
 
 -- --------------------------------------------------------
 
@@ -207,17 +224,18 @@ CREATE TABLE `permissions_roles` (
 --
 
 INSERT INTO `permissions_roles` (`id`, `role_Id`, `permissionId`) VALUES
-(43, 1, 2),
-(44, 1, 3),
-(45, 1, 4),
-(46, 1, 5),
-(47, 1, 6),
-(48, 1, 7),
-(49, 1, 8),
-(50, 1, 9),
-(51, 1, 10),
-(52, 1, 11),
-(53, 1, 12);
+(77, 1, 1),
+(78, 1, 2),
+(79, 1, 3),
+(80, 1, 4),
+(81, 1, 5),
+(82, 1, 6),
+(83, 1, 7),
+(84, 1, 8),
+(85, 1, 9),
+(86, 1, 10),
+(87, 1, 11),
+(88, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -237,7 +255,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
-(1, 'SysAdmin', '2023-01-23 20:35:20', '2023-01-31 22:53:37');
+(1, 'SysAdmin', '2023-01-23 20:35:20', '2023-02-07 18:25:01');
 
 -- --------------------------------------------------------
 
@@ -258,33 +276,6 @@ CREATE TABLE `roles_users` (
 INSERT INTO `roles_users` (`id`, `userId`, `roleId`) VALUES
 (3, 1, 1),
 (4, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `sequelizemeta`
---
-
-CREATE TABLE `sequelizemeta` (
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `sequelizemeta`
---
-
-INSERT INTO `sequelizemeta` (`name`) VALUES
-('20230117210954-create-abmuser.js'),
-('20230117212339-create-user.js'),
-('20230117212424-create-role.js'),
-('20230117212436-create-permission.js'),
-('20230117212514-create-role-permission.js'),
-('20230124190602-create-domains.js'),
-('20230124190654-create-organizations.js'),
-('20230124191059-create-locations.js'),
-('20230124191112-create-departments.js'),
-('20230124212514-create-roles_users.js'),
-('20230131192640-create-chiefs.js');
 
 -- --------------------------------------------------------
 
@@ -377,13 +368,6 @@ ALTER TABLE `roles_users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `sequelizemeta`
---
-ALTER TABLE `sequelizemeta`
-  ADD PRIMARY KEY (`name`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -397,19 +381,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `abmusers`
 --
 ALTER TABLE `abmusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `chiefs`
 --
 ALTER TABLE `chiefs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `domains`
@@ -421,13 +405,13 @@ ALTER TABLE `domains`
 -- AUTO_INCREMENT de la tabla `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `organizations`
 --
 ALTER TABLE `organizations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `permissions`
@@ -439,7 +423,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `permissions_roles`
 --
 ALTER TABLE `permissions_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -457,7 +441,7 @@ ALTER TABLE `roles_users`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

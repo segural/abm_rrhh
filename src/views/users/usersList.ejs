@@ -72,14 +72,16 @@
                                                 <td><%= user.position %> </td>
                                                 <td><%= user.department %> </td>
                                                 <td class="center hidden-phone">
-                                                        <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
-                                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                                        <a href="/users/detail/<%= user.id %>">
+                                                            <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></button>
                                                         </a>
+                                                        <% if (user.status == "ok" && req.session.userCan.includes("usuarios_gestionar")) {%>
                                                         <a data-toggle="modal" href="#DisableAccount-<%= user.id %>">
                                                             <button class="btn btn-secondary btn-sm" type="button"><i class="fa fa-arrow-down"></i></button>
                                                         </a>
-                                                        <a href="/users/edit/<%= user.id %>">
-                                                            <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></button>
+                                                        <% } %>
+                                                        <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
+                                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
                                                         </a>
                                                     <!-- Modal Delete-->
                                                         <div class="modal fade " id="deleteModal-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -115,11 +117,12 @@
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Desea solicitar a IT, la baja del usuario de red de: <b><%= user.firstName %> <%= user.lastName %></b>?
+                                                                        Desea solicitar a IT, la baja del usuario de red de: <b><%= user.firstName %> <%= user.lastName %></b>?<br>
+                                                                        Recuerde que el usuario será deshabilitado por 45 días y luego eliminado completamente.
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                                        <form action="/users/disable/<%= user.id %>?_method=DELETE" method="POST" id="form">
+                                                                        <form action="/users/disable/<%= user.id %>?_method=PUT" method="POST" id="form">
                                                                             <button type="submit" class="btn btn-primary">Enviar</button>
                                                                         </form>
                                                                     </div>

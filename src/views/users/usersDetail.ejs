@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>User Profile</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-reset.css" rel="stylesheet">
+    
+    <!--external css-->
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!--dynamic table-->
+    <link href="/assets/advanced-datatable/media/css/demo_page.css" rel="stylesheet" />
+    <link href="/assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/data-tables/DT_bootstrap.css" />
+    
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-responsive.css" rel="stylesheet" />    
+
+</head>
+
+<body>
+
+    <section id="container" class="">
+        <!-- Include Header -->
+        <%- include('../partials/header.ejs') %>
+        <!--header end-->
+
+        <!--Include Sidebar-->
+        <%- include('../partials/sidebar.ejs') %>
+        <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- page start-->
+            <div class="row"  style="margin: auto;">
+                <aside class="profile-nav col-lg-3">
+                    <section class="card">
+                        <div class="user-heading round" style="background-color: #a83232;">
+                            <a href="#">
+                                <img src="/img/users/default-avatar.jpg">
+                            </a>
+                            <h1><%= user.firstName %> <%= user.lastName %></h1>
+                            <p><%= user.position %></p>
+                        </div>
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active nav-item"><a class="nav-link" href="profile.html"> <i class="fa fa-user"></i> Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="profile-edit.html"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        </ul>
+
+                    </section>
+                </aside>
+                <aside class="profile-info col-lg-6">  
+                    <section class="card">
+                        <div class="card-body bio-graph-info" style="padding: 61px 30px">
+                            <h1>Detalles del usuario<% if (user.status == "it") {%>  
+                                <span class="badge badge-secondary label-mini">Pendiente IT</span>
+                            <% } %></h1>
+                            <div class="row">
+                                <div class="bio-row">
+                                    <p><span>Nombre </span>: <%= user.firstName %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Apellido </span>: <%= user.lastName %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Fecha de Nacimiento</span>: 
+                                        <%  let birth = new Date(user.birthday);birth = new Date(birth.getFullYear(),birth.getMonth(),birth.getDate() + 1) %> 
+                                        <%= Intl.DateTimeFormat('en-GB').format(new Date(birth)) %>
+                                    </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Empresa </span>: <%= user.organization %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Ctro. de Atención </span>: <%= user.location %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Posición </span>: <%= user.position %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Departamento </span>: <%= user.department %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Email </span>: <%= user.mail %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Teléfono </span>: <%= user.phone %></p>
+                                </div>
+                                <% if (user.ipphone) {%>
+                                <div class="bio-row">
+                                    <p><span>Teléfono IP </span>: <%= user.ipphone %></p>
+                                </div>
+                                <% } %>
+                                <div class="bio-row">
+                                    <p><span>Jefe Directo </span>: <%= user.chief %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Tipo de usuario </span>: <% if (user.external) {%> Externo <% } else { %> De Nómina <% } %></p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Usuario de red </span>: <% if (user.username) { %> crtp.corp\<%= user.username %> <% } else { %> Aún no posee<% } %></p>
+                                </div>
+                            </div>
+                            <% if (user.status == "it" && req.session.userCan.includes("usuarios_crear")) {%>
+                            <a data-toggle="modal" href="#usercreated-<%= user.id %>"><button type="button" class="btn btn-vidt">Confirmar Alta de red</button></a>
+                            <% } %>
+                    <!-- Modal User created-->
+                    <form action="/users/created/<%= user.id %>?_method=PUT" method="POST" id="user-created">
+                        <div class="modal fade " id="usercreated-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="usercreated-<%= user.id %>">Datos adicionales del alta de red</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Ingrese Usuario de red:</span>
+                                        <input class="form-control" type="text" name="username" id="username" required></div>
+                                        <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Correo Electrónico:</span>
+                                        <input class="form-control" type="email" name="email" id="email" value="@<%= user.maildomain %>" required></div>
+                                        <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Teléfono IP:</span>
+                                        <input class="form-control" type="number" name="ipphone" id="ipphone" required></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- modal -->
+                        </div>
+                    </section>
+                </aside>
+            </div>
+
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+
+    <!-- Include footer -->
+    <!-- <%- include('../partials/footer.ejs') %> -->
+    <!-- footer end -->
+    </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="/js/jquery.scrollTo.min.js"></script>
+    <script src="/js/slidebars.min.js"></script>
+    <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="/js/respond.min.js" ></script>
+
+    <!--common script for all pages-->
+    <script src="/js/common-scripts.js"></script>
+
+    </body>
+</html>
