@@ -1,7 +1,7 @@
 {
-  "name": "ADAMA",
+  "name": "ABM_RRHH",
   "version": "1.0.0",
-  "description": "ADAMA Gestion de facturas y proveedores",
+  "description": "ABM usuarios de red",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"

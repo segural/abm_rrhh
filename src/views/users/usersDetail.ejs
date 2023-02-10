@@ -115,6 +115,16 @@
                             </div>
                             <% if (user.status == "it" && req.session.userCan.includes("usuarios_crear")) {%>
                             <a data-toggle="modal" href="#usercreated-<%= user.id %>"><button type="button" class="btn btn-vidt">Confirmar Alta de red</button></a>
+                            <% } else if (user.status == "enable_it" && req.session.userCan.includes("usuarios_crear")) {%>
+                                <form action="/users/directenable/<%= user.id %>?_method=PUT" method="POST" id="form">
+                                    <button type="submit" class="btn btn-vidt">Confirmar Alta de red</button>
+                                </form>
+                            <% } else if (user.status == "temp_it" && req.session.userCan.includes("usuarios_crear")) {%>
+                                <form action="/users/tempenable/<%= user.id %>?_method=PUT" method="POST" id="form">
+                                    <button type="submit" class="btn btn-vidt">Confirmar Alta temporal</button>
+                                </form>
+                            <% } else if (user.status == "it_disable" && req.session.userCan.includes("usuarios_deshabilitar")) {%>
+                            <a data-toggle="modal" href="#userdown-<%= user.id %>"><button type="button" class="btn btn-vidt">Confirmar Baja de red</button></a>
                             <% } %>
                     <!-- Modal User created-->
                     <form action="/users/created/<%= user.id %>?_method=PUT" method="POST" id="user-created">
@@ -143,8 +153,32 @@
                         </div>
                     </form>
                     <!-- modal -->
+                </div>
+                <!-- Modal User disabled-->
+                <form action="/users/down/<%= user.id %>?_method=PUT" method="POST" id="user-down">
+                    <div class="modal fade " id="userdown-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="userdown-<%= user.id %>">Confirmación de Baja de red</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Confirma la baja del usuario <b><%= user.firstName %> <%= user.lastName %></b>?
+                                    <input type="text" name="status" value="disabled" hidden>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                            </div>
                         </div>
-                    </section>
+                    </div>
+                </form>
+                <!-- modal -->
+            </section>
                 </aside>
             </div>
 

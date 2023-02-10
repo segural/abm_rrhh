@@ -9,7 +9,7 @@ const userController = {
     userList: async (req, res) => {
         let users = await db.abmusers.findAll({
             where:{
-                status:"ok"
+                [Op.or]: [{status: "ok"}, {status:"temp_ok"}]
             },
         })
         res.render("./users/usersList.ejs", { req, users });
@@ -23,10 +23,19 @@ const userController = {
     userPendingIt: async (req, res) => {
         let users = await db.abmusers.findAll({
             where:{
-                [Op.or]: [{status: "it"}, {status:"it_disable"}]
+                [Op.or]: [{status: "it"}, {status:"it_disable"}, {status:"temp_it"}, {status: "enable_it"}]
             }
         })
         res.render("./users/usersPendingForIT.ejs", { req, users });
+    },
+    
+    userListDisable: async (req, res) => {
+        let users = await db.abmusers.findAll({
+            where: {
+                status: "disabled"
+            }
+        })
+        res.render("./users/usersDisabled.ejs", { req, users });
     },
     
     newUser: async (req, res) => {
@@ -105,6 +114,38 @@ const userController = {
         let userDisabled = await db.abmusers.findByPk(req.params.id);
         await userDisabled.update({
             status: "it_disable"
+        });
+        res.redirect('/users/list')
+    },
+
+    userDown: async (req, res) => {
+        let userDisabled = await db.abmusers.findByPk(req.params.id);
+        await userDisabled.update({
+            status: "disabled"
+        });
+        res.redirect('/users/list')
+    },
+
+    userEnabled: async (req, res) => {
+        let userEnabled = await db.abmusers.findByPk(req.params.id);
+        await userEnabled.update({
+            status: req.body.status
+        });
+        res.redirect('/users/list')
+    },
+
+    userDirectEnabled: async (req, res) => {
+        let userEnabled = await db.abmusers.findByPk(req.params.id);
+        await userEnabled.update({
+            status: "ok"
+        });
+        res.redirect('/users/list')
+    },
+
+    userTempEnabled: async (req, res) => {
+        let userEnabled = await db.abmusers.findByPk(req.params.id);
+        await userEnabled.update({
+            status: "temp_ok"
         });
         res.redirect('/users/list')
     },

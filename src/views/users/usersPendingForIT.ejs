@@ -70,15 +70,20 @@
                                                 <td><%= user.firstName %> <%= user.lastName %></td>
                                                 <td><%= user.position %> </td>
                                                 <td><%= user.department %> </td>
-                                                <td> <% if (user.status == "it") {%>  
+                                                <td> <% if (user.status == "it" || user.status == "enable_it") {%>  
                                                     <span class="badge badge-secondary label-mini">Pendiente Alta IT</span>
                                                     <% } else if (user.status == "it_disable") {%>
-                                                        <span class="badge badge-danger label-mini">Pendiente Baja IT</span>
+                                                        <span class="badge badge-warning label-mini">Pendiente Baja IT</span>
+                                                    <% } else if (user.status == "temp_it") {%>
+                                                        <span class="badge badge-info label-mini">Alta temporaria IT</span>
                                                     <% } %>
                                                 </td>
                                                 <td class="center hidden-phone">
                                                         <a href="/users/detail/<%= user.id %>">
                                                             <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></button>
+                                                        </a>
+                                                        <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
+                                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
                                                         </a>
                                                     <!-- Modal -->
                                                         <div class="modal fade " id="deleteModal-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

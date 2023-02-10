@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 08-02-2023 a las 19:44:53
+-- Tiempo de generación: 10-02-2023 a las 18:32:53
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -54,10 +54,11 @@ CREATE TABLE `abmusers` (
 --
 
 INSERT INTO `abmusers` (`id`, `firstName`, `lastName`, `position`, `location`, `phone`, `birthday`, `ipphone`, `department`, `organization`, `chief`, `username`, `external`, `maildomain`, `userduedate`, `mail`, `status`, `createdAt`, `updatedAt`) VALUES
-(4, 'Juan', 'Perez', 'Fisico', 'Vidt', 52786004, '1985-02-25 00:00:00', 56895, 'Area Física', 'Vidt CentroMedico SRL', 'Silvio Arbiser', 'perezj', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'juan.perez@rtp.com.ar', 'it_disable', '2023-02-01 19:46:47', '2023-02-08 19:27:07'),
+(4, 'Juan', 'Perez', 'Fisico', 'Vidt', 52786004, '1985-02-25 00:00:00', 56895, 'Area Física', 'Vidt CentroMedico SRL', 'Silvio Arbiser', 'perezj', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'juan.perez@rtp.com.ar', 'disabled', '2023-02-01 19:46:47', '2023-02-10 18:11:41'),
 (5, 'Luciano', 'Segura', 'IT', 'Billinghurst', 55330876, '1979-09-21 00:00:00', NULL, 'Sistemas', 'Vidt CentroMedico SRL', 'Luciano Segura', 'segural', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'luciano.segura@rtp.com.ar', 'ok', '2023-02-01 19:59:38', '2023-02-01 19:59:38'),
 (6, 'Prueba', 'Probando', 'Compras', 'Vidt', 56985645, '1986-02-15 00:00:00', NULL, 'Area Médica', 'Terapia Radiante SRL', 'Jorge Chiozza', NULL, 0, 'redcio.com.ar', '9999-12-31 00:00:00', NULL, 'chief', '2023-02-07 18:33:29', '2023-02-07 18:33:29'),
-(7, 'Manda', 'Lorian', 'Recepción', 'Vidt', 51992199, '1999-02-25 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-08 19:33:09', '2023-02-08 19:33:09');
+(7, 'Manda', 'Lorian', 'Recepción', 'Vidt', 51992199, '1999-02-25 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-08 19:33:09', '2023-02-08 19:33:09'),
+(8, 'Enzo', 'Fernandez', 'Volante', 'Hospital Español', 52369856, '1986-02-22 00:00:00', 52365, 'Area Médica', 'Ceditrin SRL', 'Jorge Chiozza', 'fernendeze', 0, 'ceditrin.com.ar', '9999-12-31 00:00:00', 'Enzo.Fernandez@ceditrin.com.ar', 'it_disable', '2023-02-10 17:02:49', '2023-02-10 17:03:21');
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,8 @@ INSERT INTO `permissions` (`id`, `name`, `description`, `createdAt`, `updatedAt`
 (9, 'usuarios_eliminar', 'Permite eliminar usuarios', '2023-01-30 13:29:44', '2023-01-30 13:29:44'),
 (10, 'permisos_gestionar', 'Permite gestión de permisos', '2023-01-31 19:53:13', '2023-01-31 19:53:13'),
 (11, 'permisos_editar', 'Permite editar los permisos', '2023-01-31 22:55:52', '2023-01-31 22:55:52'),
-(12, 'permisos_eliminar', 'Permite eliminar los permisos', '2023-01-31 22:56:11', '2023-01-31 22:56:11');
+(12, 'permisos_eliminar', 'Permite eliminar los permisos', '2023-01-31 22:56:11', '2023-01-31 22:56:11'),
+(13, 'usuarios_deshabilitar', 'Permite que sistemas marque al usuario como deshabilitado', '2023-02-10 15:51:44', '2023-02-10 15:52:02');
 
 -- --------------------------------------------------------
 
@@ -235,7 +237,8 @@ INSERT INTO `permissions_roles` (`id`, `role_Id`, `permissionId`) VALUES
 (85, 1, 9),
 (86, 1, 10),
 (87, 1, 11),
-(88, 1, 12);
+(88, 1, 12),
+(90, 1, 13);
 
 -- --------------------------------------------------------
 
@@ -381,7 +384,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `abmusers`
 --
 ALTER TABLE `abmusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `chiefs`
@@ -417,13 +420,13 @@ ALTER TABLE `organizations`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `permissions_roles`
 --
 ALTER TABLE `permissions_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

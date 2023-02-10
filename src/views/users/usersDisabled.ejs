@@ -24,8 +24,7 @@
         
         <!-- Custom styles for this template -->
         <link href="/css/style.css" rel="stylesheet">
-        <link href="/css/style-responsive.css" rel="stylesheet" />
-        
+        <link href="/css/style-responsive.css" rel="stylesheet" />    
 </head>
 <body>
 
@@ -46,14 +45,13 @@
                     <div class="col-lg-6" style="margin: auto;">
                         <section class="card">
                             <header class="card-header">
-                                <i class="fa fa-users "></i> Listado de Usuarios de red
+                                <i class="fa fa-users "></i> Listado de Usuarios Deshabilitados
                             <span class="tools pull-right">
                                 <a href="javascript:;" class="fa fa-chevron-down"></a>
                                 <a href="javascript:;" class="fa fa-times"></a>
                             </span>
                             </header>
                         <div class="card-body table-responsive">
-                            <a href="/users/new"><button type="button" class="btn btn-vidt" style="margin-bottom: 15px;">Nuevo Usuario</button></a>
                             <div class="adv-table" style="max-width: 1000px;">
                                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                                     <thead>
@@ -71,44 +69,70 @@
                                                 <td><%= user.firstName %> <%= user.lastName %></td>
                                                 <td><%= user.position %> </td>
                                                 <td><%= user.department %> </td>
-                                                <td><% if (user.status == "ok"){%>  
-                                                        <span class="badge badge-success label-mini">Habilitado</span>
-                                                    <% } else if (user.status == "temp_ok") {%>
-                                                        <span class="badge badge-dark label-mini">Hab.Temporal</span>
-                                                    <% } %>
-                                                </td>
+                                                <td><span class="badge badge-danger label-mini">Deshabilitado</span></td>
                                                 <td class="center hidden-phone">
-                                                        <a href="/users/detail/<%= user.id %>">
-                                                            <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></button>
+                                                        <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
+                                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
                                                         </a>
                                                         <% if (req.session.userCan.includes("usuarios_gestionar")) {%>
-                                                        <a data-toggle="modal" href="#DisableAccount-<%= user.id %>">
-                                                            <button class="btn btn-secondary btn-sm" type="button"><i class="fa fa-arrow-down"></i></button>
-                                                        </a>
+                                                            <a data-toggle="modal" href="#EnableAccount-<%= user.id %>">
+                                                                <button class="btn btn-secondary btn-sm" type="button"><i class="fa fa-arrow-up"></i></button>
+                                                            </a>
                                                         <% } %>
-                                                    <!-- Modal Disable Account-->
-                                                        <div class="modal fade " id="DisableAccount-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                    <!-- Modal Delete-->
+                                                        <div class="modal fade " id="deleteModal-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="DisableAccount-<%= user.id %>">Solicitar baja de Usuario</h5>
+                                                                        <h5 class="modal-title" id="deleteModal-<%= user.id %>">Confirmar eliminación</h5>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Desea solicitar a IT, la baja del usuario de red de: <b><%= user.firstName %> <%= user.lastName %></b>?<br>
-                                                                        Recuerde que el usuario será deshabilitado por 45 días y luego eliminado completamente.
+                                                                        Confirma la eliminación de: <b><%= user.firstName %> <%= user.lastName %></b>?
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                                        <form action="/users/disable/<%= user.id %>?_method=PUT" method="POST" id="form">
-                                                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                                                        <form action="/users/destroy/<%= user.id %>?_method=DELETE" method="POST" id="form">
+                                                                            <button type="submit" class="btn btn-primary">Eliminar</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    <!-- modal -->
+                                                    <!-- Modal Enable-->
+                                                    <form action="/users/enable/<%= user.id %>?_method=PUT" method="POST" id="form">
+                                                        <div class="modal fade " id="EnableAccount-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="EnableAccount-<%= user.id %>">Re-Habilitar usuario</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Desea solicitar a sistemas la re-habilitación de: <b><%= user.firstName %> <%= user.lastName %></b>?
+                                                                        <br>
+                                                                        <div class="form-group row" style="margin-top: 30px; padding: 0 50px;">
+                                                                            <label class="col-sm-4 col-form-label">Tipo de Habilitación</label>
+                                                                            <select type="text" class="form-control" name="status" required>
+                                                                                <option disabled selected></option>
+                                                                                <option value="enable_it"> Habilitación permanente </option>
+                                                                                <option value="temp_it"> Habilitación temporaria </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                            <button type="submit" class="btn btn-primary">Solicitar</button>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                     <!-- modal -->
                                                 </td>
                                             </tr>

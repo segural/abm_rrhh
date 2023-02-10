@@ -18,11 +18,16 @@ router.get("/pending", authMiddleware, userController.userPending);
 router.get("/pendingit", authMiddleware, userController.userPendingIt);
 router.get("/detail/:id", authMiddleware, userController.userDetail);
 router.get("/edit/:id", authMiddleware, userController.userEdit);
+router.get("/disabled/", authMiddleware, userController.userListDisable);
 
 //Rutas post/put
 router.post("/newuser", userController.userStore);
 router.put("/created/:id", userController.userCreated);
 router.put("/disable/:id", userController.userDisabled);
+router.put("/down/:id", userController.userDown);
+router.put("/enable/:id", userController.userEnabled);
+router.put("/directenable/:id", userController.userDirectEnabled);
+router.put("/tempenable/:id", userController.userTempEnabled);
 
 //Rutas delete
 router.delete("/destroy/:id", userController.usersDestroy);
