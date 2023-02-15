@@ -15,6 +15,9 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING
       },
+      document: {
+        type: Sequelize.STRING
+      },
       position: {
         type: Sequelize.STRING
       },

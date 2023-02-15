@@ -48,6 +48,12 @@ const userController = {
     },
     
     userStore: async (req, res) => {
+        let usertocreate = await db.abmusers.findOne({
+            where: {
+                document: req.body.doc,
+            }
+        })
+        if (usertocreate == undefined){
         let domain = null;
         if (req.body.maildomain != undefined){
             domain = req.body.maildomain
@@ -59,6 +65,7 @@ const userController = {
         let newuser = await db.abmusers.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            document: req.body.doc,
             position: req.body.position,
             location: req.body.location,
             phone: req.body.phone,
@@ -75,7 +82,15 @@ const userController = {
             status: "it"
         })
         res.redirect('/users/list');
-    },
+    } else {
+        let domains = await db.domains.findAll();
+        let organizations = await db.organizations.findAll();
+        let locations = await db.locations.findAll();
+        let departments = await db.departments.findAll();
+        let chiefs = await db.chiefs.findAll();
+        let body = req.body;
+        res.render("./users/usersExists.ejs", {req, body, domains, departments, locations, organizations, chiefs});
+    }},
     
     userDetail: async (req, res) => {
         let user = await db.abmusers.findOne({

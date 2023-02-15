@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   abmusers.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
+    document: DataTypes.STRING,
     position: DataTypes.STRING,
     location: DataTypes.STRING,
     phone: { type: DataTypes.INTEGER, allowNull: true},
