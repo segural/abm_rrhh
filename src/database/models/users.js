@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         otherKey:'roleId',
         timestamps: false,
       })
+      users.hasMany(models.Logs, {
+          as:'users',
+          foreignKey: 'userID',
+          timestamps: false,
+      })
     }
   }
   users.init({

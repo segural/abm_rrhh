@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-02-2023 a las 18:32:53
+-- Tiempo de generación: 16-02-2023 a las 19:49:48
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -31,6 +31,8 @@ CREATE TABLE `abmusers` (
   `id` int(11) NOT NULL,
   `firstName` varchar(255) DEFAULT NULL,
   `lastName` varchar(255) DEFAULT NULL,
+  `document` varchar(255) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
   `position` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `phone` int(11) DEFAULT NULL,
@@ -53,12 +55,13 @@ CREATE TABLE `abmusers` (
 -- Volcado de datos para la tabla `abmusers`
 --
 
-INSERT INTO `abmusers` (`id`, `firstName`, `lastName`, `position`, `location`, `phone`, `birthday`, `ipphone`, `department`, `organization`, `chief`, `username`, `external`, `maildomain`, `userduedate`, `mail`, `status`, `createdAt`, `updatedAt`) VALUES
-(4, 'Juan', 'Perez', 'Fisico', 'Vidt', 52786004, '1985-02-25 00:00:00', 56895, 'Area Física', 'Vidt CentroMedico SRL', 'Silvio Arbiser', 'perezj', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'juan.perez@rtp.com.ar', 'disabled', '2023-02-01 19:46:47', '2023-02-10 18:11:41'),
-(5, 'Luciano', 'Segura', 'IT', 'Billinghurst', 55330876, '1979-09-21 00:00:00', NULL, 'Sistemas', 'Vidt CentroMedico SRL', 'Luciano Segura', 'segural', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'luciano.segura@rtp.com.ar', 'ok', '2023-02-01 19:59:38', '2023-02-01 19:59:38'),
-(6, 'Prueba', 'Probando', 'Compras', 'Vidt', 56985645, '1986-02-15 00:00:00', NULL, 'Area Médica', 'Terapia Radiante SRL', 'Jorge Chiozza', NULL, 0, 'redcio.com.ar', '9999-12-31 00:00:00', NULL, 'chief', '2023-02-07 18:33:29', '2023-02-07 18:33:29'),
-(7, 'Manda', 'Lorian', 'Recepción', 'Vidt', 51992199, '1999-02-25 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-08 19:33:09', '2023-02-08 19:33:09'),
-(8, 'Enzo', 'Fernandez', 'Volante', 'Hospital Español', 52369856, '1986-02-22 00:00:00', 52365, 'Area Médica', 'Ceditrin SRL', 'Jorge Chiozza', 'fernendeze', 0, 'ceditrin.com.ar', '9999-12-31 00:00:00', 'Enzo.Fernandez@ceditrin.com.ar', 'it_disable', '2023-02-10 17:02:49', '2023-02-10 17:03:21');
+INSERT INTO `abmusers` (`id`, `firstName`, `lastName`, `document`, `file`, `position`, `location`, `phone`, `birthday`, `ipphone`, `department`, `organization`, `chief`, `username`, `external`, `maildomain`, `userduedate`, `mail`, `status`, `createdAt`, `updatedAt`) VALUES
+(4, 'Juan', 'Perez', '25656898', 'No Aplica', 'Fisico', 'Vidt', 52786004, '1985-02-25 00:00:00', 56895, 'Area Física', 'Vidt CentroMedico SRL', 'Silvio Arbiser', 'perezj', 0, 'rtp.com.ar', '9999-12-31 00:00:00', 'juan.perez@rtp.com.ar', 'disabled', '2023-02-01 19:46:47', '2023-02-10 18:11:41'),
+(5, 'Luciano', 'Segura', '27554757', '5263', 'Gerente IT', 'Billinghurst', 55330876, '1979-09-21 00:00:00', NULL, 'Sistemas', 'Vidt CentroMedico SRL', 'Luciano Segura', 'segural', 0, 'rtp.com.ar', NULL, 'luciano.segura@rtp.com.ar', 'ok', '2023-02-01 19:59:38', '2023-02-15 16:17:48'),
+(6, 'Prueba', 'Probando', '33568985', 'No Aplica', 'Compras', 'Vidt', 56985645, '1986-02-15 00:00:00', NULL, 'Area Médica', 'Terapia Radiante SRL', 'Jorge Chiozza', NULL, 0, 'redcio.com.ar', '9999-12-31 00:00:00', NULL, 'chief', '2023-02-07 18:33:29', '2023-02-07 18:33:29'),
+(7, 'Manda', 'Lorian', '53268569', '5896', 'Recepción', 'Vidt', 51992199, '1999-02-25 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-08 19:33:09', '2023-02-08 19:33:09'),
+(8, 'Enzo', 'Fernandez', '33568996', '2356', 'Volante', 'Hospital Español', 52369856, '1986-02-22 00:00:00', 52365, 'Area Médica', 'Ceditrin SRL', 'Jorge Chiozza', 'fernendeze', 0, 'ceditrin.com.ar', '9999-12-31 00:00:00', 'Enzo.Fernandez@ceditrin.com.ar', 'it_disable', '2023-02-10 17:02:49', '2023-02-10 17:03:21'),
+(9, 'Joel', 'Last', '56895658', 'No Aplica', 'Tranportador', 'Billinghurst', 1133555976, '1995-05-23 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-14 17:25:47', '2023-02-14 17:25:47');
 
 -- --------------------------------------------------------
 
@@ -153,6 +156,22 @@ INSERT INTO `locations` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
 (2, 'Vidt', '2023-01-26 21:19:21', '2023-01-26 21:19:21'),
 (3, 'Hospital Español', '2023-02-08 19:36:38', '2023-02-08 19:36:38'),
 (4, 'La Plata - Terapia Radiante', '2023-02-08 19:37:07', '2023-02-08 19:37:07');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `userID` int(11) DEFAULT NULL,
+  `abmUserId` int(11) DEFAULT NULL,
+  `logType` varchar(255) DEFAULT NULL,
+  `description` text,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -341,6 +360,12 @@ ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `organizations`
 --
 ALTER TABLE `organizations`
@@ -384,7 +409,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `abmusers`
 --
 ALTER TABLE `abmusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `chiefs`
@@ -409,6 +434,12 @@ ALTER TABLE `domains`
 --
 ALTER TABLE `locations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `organizations`

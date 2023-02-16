@@ -11,12 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      abmusers.hasMany(models.Logs, {
+        as:'abmusers',
+        foreignKey: 'abmUserId',
+        timestamps: false,
+        scope: {
+          logType: 'Users'
+        }
+    })
     }
   }
   abmusers.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     document: DataTypes.STRING,
+    file: DataTypes.STRING,
     position: DataTypes.STRING,
     location: DataTypes.STRING,
     phone: { type: DataTypes.INTEGER, allowNull: true},

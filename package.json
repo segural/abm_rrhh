@@ -1,5 +1,5 @@
 {
-  "name": "ABM_RRHH",
+  "name": "RRHH",
   "version": "1.0.0",
   "description": "ABM usuarios de red",
   "main": "app.js",
@@ -27,10 +27,8 @@
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
     "sequelize": "^6.28.0",
+    "sequelize-cli": "^6.6.0",
     "toastr": "^2.1.4",
     "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "sequelize-cli": "^6.6.0"
   }
 }

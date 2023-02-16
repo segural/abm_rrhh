@@ -6,194 +6,240 @@
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>User Profile</title>
+    <title>ABM - Usuarios</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-reset.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap-reset.css" rel="stylesheet">
+        
+        <!--external css-->
+        <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     
-    <!--external css-->
-    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
-    <!--dynamic table-->
-    <link href="/assets/advanced-datatable/media/css/demo_page.css" rel="stylesheet" />
-    <link href="/assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/data-tables/DT_bootstrap.css" />
-    
-    <!-- Custom styles for this template -->
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/style-responsive.css" rel="stylesheet" />    
-
+        <!--dynamic table-->
+        <link href="/assets/advanced-datatable/media/css/demo_page.css" rel="stylesheet" />
+        <link href="/assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/assets/data-tables/DT_bootstrap.css" />
+        
+        <!-- Custom styles for this template -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/style-responsive.css" rel="stylesheet" />    
 </head>
-
 <body>
 
-    <section id="container" class="">
-        <!-- Include Header -->
-        <%- include('../partials/header.ejs') %>
-        <!--header end-->
+<section id="container" class="">
+    <!-- Include Header -->
+    <%- include('../partials/header.ejs') %>
+    <!--header end-->
 
-        <!--Include Sidebar-->
+    <!--Include Sidebar-->
         <%- include('../partials/sidebar.ejs') %>
-        <!--sidebar end-->
+    <!--sidebar end-->
 
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            <!-- page start-->
-            <div class="row"  style="margin: auto;">
-                <aside class="profile-nav col-lg-3">
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <!-- page start-->
+                <div class="col-lg-6" style="margin: auto;">
                     <section class="card">
-                        <div class="user-heading round" style="background-color: #a83232;">
-                            <a href="#">
-                                <img src="/img/users/default-avatar.jpg">
-                            </a>
-                            <h1><%= user.firstName %> <%= user.lastName %></h1>
-                            <p><%= user.position %></p>
-                        </div>
-
-                        <ul class="nav nav-pills nav-stacked">
-                            <li class="active nav-item"><a class="nav-link" href="/users/detail/<%= user.id %>"> <i class="fa fa-user"></i> Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/users/edit/<%= user.id %>"> <i class="fa fa-edit"></i> Edit profile</a></li>
-                        </ul>
-
-                    </section>
-                </aside>
-                <aside class="profile-info col-lg-6">  
-                    <section class="card">
-                        <div class="card-body bio-graph-info" style="padding: 61px 30px">
-                            <h1>Detalles del usuario<% if (user.status == "it") {%>  
-                                <span class="badge badge-secondary label-mini">Pendiente IT</span>
-                            <% } %></h1>
-                            <div class="row">
-                                <div class="bio-row">
-                                    <p><span>Nombre </span>: <%= user.firstName %></p>
+                        <header class="card-header">
+                            Editar usuario
+                        </header>
+                        <div class="card-body">
+                            <form action="/users/edituser/<%= user.id %>?_method=PUT" method="POST" id="edit-user">
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Nombre</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="firstName" value="<%= user.firstName %>" required>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Apellido </span>: <%= user.lastName %></p>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Apellido</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="lastName" value="<%= user.lastName %>" required>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Fecha de Nacimiento</span>: 
-                                        <%  let birth = new Date(user.birthday);birth = new Date(birth.getFullYear(),birth.getMonth(),birth.getDate() + 1) %> 
-                                        <%= Intl.DateTimeFormat('en-GB').format(new Date(birth)) %>
-                                    </p>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Documento Identidad</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="doc" value="<%= user.document %>" required>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Doc.Identidad </span>: <%= user.document %></p>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Legajo</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="file" value="<%= user.file %>">
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Empresa </span>: <%= user.organization %></p>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Posición</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="position" value="<%= user.position %>" required>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Ctro. de Atención </span>: <%= user.location %></p>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Día de nacimiento</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="birthdate" value="<%= user.birthday %>" required>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Posición </span>: <%= user.position %></p>
+                                <fieldset class="form-group">
+                                    <div class="row" style="padding-left: 15px;" >
+                                        <legend class="col-form-label col-sm-2 pt-0">Tipo de usuario</legend>
+                                        <div class="col-sm-10">
+                                            <% if (user.external == false) {%>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="external" id="external0" value="0" onclick="externaluser('external0', 'external1', 'userdate', 'usermail', 'userduedate', this)" checked>
+                                                <label class="form-check-label">
+                                                    Personal de nómina
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="external" id="external1" value="1" onclick="externaluser('external0', 'external1', 'userdate', 'usermail', 'userduedate', this)">
+                                                <label class="form-check-label">
+                                                    Personal externo
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-group row" style="padding: 0 15px" id="userdate" hidden>
+                                    <label class="col-sm-2 col-form-label">Vencimiento de cuenta</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="userduedate" id="userduedate">
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Departamento </span>: <%= user.department %></p>
+                                <div class="form-group row" style="padding-left: 15px;" id="usermail" hidden>
+                                    <div class="col-sm-2">Mail corporativo</div>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck1" onclick="nonmail('gridCheck1', 'showdomain', this)">
+                                            <label class="form-check-label" for="gridCheck1">
+                                                No necesita correo corporativo
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Email </span>: <%= user.mail %></p>
+                                            <% } else {%>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="external" id="external0" value="0" onclick="externaluser('external0', 'external1', 'userdate', 'usermail', 'userduedate', this)">
+                                                <label class="form-check-label">
+                                                    Personal de nómina
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="external" id="external1" value="1" onclick="externaluser('external0', 'external1', 'userdate', 'usermail', 'userduedate', this)" checked>
+                                                <label class="form-check-label">
+                                                    Personal externo
+                                                </label>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-group row" style="padding: 0 15px" id="userdate">
+                                    <label class="col-sm-2 col-form-label">Vencimiento de cuenta</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="userduedate" id="userduedate" required>
+                                    </div>
                                 </div>
-                                <div class="bio-row">
-                                    <p><span>Teléfono </span>: <%= user.phone %></p>
-                                </div>
-                                <% if (user.ipphone) {%>
-                                <div class="bio-row">
-                                    <p><span>Teléfono IP </span>: <%= user.ipphone %></p>
+                                <div class="form-group row" style="padding-left: 15px;" id="usermail">
+                                    <div class="col-sm-2">Mail corporativo</div>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="gridCheck1" onclick="nonmail('gridCheck1', 'showdomain', this)">
+                                            <label class="form-check-label" for="gridCheck1">
+                                                No necesita correo corporativo
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <% } %>
-                                <div class="bio-row">
-                                    <p><span>Jefe Directo </span>: <%= user.chief %></p>
-                                </div>
-                                <div class="bio-row">
-                                    <p><span>Tipo de usuario </span>: <% if (user.external) {%> Externo <% } else { %> De Nómina <% } %></p>
-                                </div>
-                                <div class="bio-row">
-                                    <p><span>Usuario de red </span>: <% if (user.username) { %> crtp.corp\<%= user.username %> <% } else { %> Aún no posee<% } %></p>
-                                </div>
-                            </div>
-                            <% if (user.status == "it" && req.session.userCan.includes("usuarios_crear")) {%>
-                            <a data-toggle="modal" href="#usercreated-<%= user.id %>"><button type="button" class="btn btn-vidt">Confirmar Alta de red</button></a>
-                            <% } else if (user.status == "enable_it" && req.session.userCan.includes("usuarios_crear")) {%>
-                                <form action="/users/directenable/<%= user.id %>?_method=PUT" method="POST" id="form">
-                                    <button type="submit" class="btn btn-vidt">Confirmar Alta de red</button>
-                                </form>
-                            <% } else if (user.status == "temp_it" && req.session.userCan.includes("usuarios_crear")) {%>
-                                <form action="/users/tempenable/<%= user.id %>?_method=PUT" method="POST" id="form">
-                                    <button type="submit" class="btn btn-vidt">Confirmar Alta temporal</button>
-                                </form>
-                            <% } else if (user.status == "it_disable" && req.session.userCan.includes("usuarios_deshabilitar")) {%>
-                            <a data-toggle="modal" href="#userdown-<%= user.id %>"><button type="button" class="btn btn-vidt">Confirmar Baja de red</button></a>
-                            <% } %>
-                    <!-- Modal User created-->
-                    <form action="/users/created/<%= user.id %>?_method=PUT" method="POST" id="user-created">
-                        <div class="modal fade " id="usercreated-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="usercreated-<%= user.id %>">Datos adicionales del alta de red</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Ingrese Usuario de red:</span>
-                                        <input class="form-control" type="text" name="username" id="username" required></div>
-                                        <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Correo Electrónico:</span>
-                                        <input class="form-control" type="email" name="email" id="email" value="@<%= user.maildomain %>" required></div>
-                                        <div class="col-lg-8" style="margin-top: 8px" id="number"><span class="px-3 py-2">Teléfono IP:</span>
-                                        <input class="form-control" type="number" name="ipphone" id="ipphone" required></div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                <div class="form-group row" style="padding: 0 15px;" id="showdomain">
+                                    <label class="col-sm-2 col-form-label">Dominio para mail</label>
+                                    <div class="col-sm-10">
+                                        <select type="text" class="form-control" name="maildomain" required>
+                                            <option value="<%= user.maildomain %>" selected>@<%= user.maildomain %></option>
+                                            <% for (domain of domains) {%>
+                                            <% if (user.maildomain != domain.domainName) {%>
+                                                <option value="<%= domain.domainName %>"> @<%= domain.domainName %></option>
+                                            <% }} %> 
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Empresa</label>
+                                    <div class="col-sm-10">
+                                        <select type="text" class="form-control" name="organization" required>
+                                            <option class="<%= user.organization %>" selected><%= user.organization %></option>
+                                            <% for (organization of organizations) {%>
+                                            <% if (user.organization != organization.name) {%>
+                                                <option value="<%= organization.name %>"> <%= organization.name %></option>
+                                            <% }} %> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Centro de Atención</label>
+                                    <div class="col-sm-10">
+                                        <select type="text" class="form-control" name="location" required>
+                                            <option value="<%= user.location %>" selected><%= user.location %></option>
+                                            <% for (location of locations) {%>
+                                            <% if (user.location != location.name) {%>
+                                                <option value="<%= location.name %>"> <%= location.name %></option>
+                                            <% }} %> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Teléfono externo:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" name="phone" value="<%= user.phone %>" >
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Departamento</label>
+                                    <div class="col-sm-10">
+                                        <select type="text" class="form-control" name="department" required>
+                                            <option value="<%= user.department %>" selected><%= user.department %></option>
+                                            <% for (department of departments) {%>
+                                            <% if (user.department != department.name) {%>
+                                                <option value="<%= department.name %>"> <%= department.name %></option>
+                                            <% }} %> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="padding: 0 15px;">
+                                    <label class="col-sm-2 col-form-label">Jefe Directo</label>
+                                    <div class="col-sm-10">
+                                        <select type="text" class="form-control" name="chief" required>
+                                            <option value="<%= user.chief %>" selected><%= user.chief %></option>
+                                            <% for (chief of chiefs) {%>
+                                            <% if (user.chief != chief.fullName) {%>
+                                                <option value="<%= chief.fullName %>"> <%= chief.fullName %> (<%= chief.department %>) </option>
+                                            <% }} %> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div style="margin: auto; padding-top: 15px;">
+                                        <button type="submit" class="btn btn-danger">Enviar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                    <!-- modal -->
+                    </section>
                 </div>
-                <!-- Modal User disabled-->
-                <form action="/users/down/<%= user.id %>?_method=PUT" method="POST" id="user-down">
-                    <div class="modal fade " id="userdown-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="userdown-<%= user.id %>">Confirmación de Baja de red</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Confirma la baja del usuario <b><%= user.firstName %> <%= user.lastName %></b>?
-                                    <input type="text" name="status" value="disabled" hidden>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- modal -->
+                <!-- page end-->
             </section>
-                </aside>
-            </div>
-
-            <!-- page end-->
         </section>
-    </section>
-    <!--main content end-->
+        <!--main content end-->
 
     <!-- Include footer -->
     <!-- <%- include('../partials/footer.ejs') %> -->
     <!-- footer end -->
-    </section>
+</section>
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="/js/jquery.js"></script>
@@ -207,5 +253,29 @@
     <!--common script for all pages-->
     <script src="/js/common-scripts.js"></script>
 
-    </body>
+    <script>
+        function externaluser(external0, external1, userdate, usermail, userduedate, elementValue) {
+        if (document.getElementById(external1).checked) {
+            document.getElementById(userdate).removeAttribute("hidden"),
+            document.getElementById(usermail).removeAttribute("hidden"),
+            document.getElementById(userduedate).required = true
+        } else if (document.getElementById(external0).checked) {
+            document.getElementById(userdate).hidden = true,
+            document.getElementById(usermail).hidden = true,
+            document.getElementById(userduedate).removeAttribute("required")
+        };
+        }
+    </script>
+
+    <script>
+        function nonmail(gridCheck1, showdomain, elementValue) {
+        if (document.getElementById(gridCheck1).checked) {
+            document.getElementById(showdomain).hidden = true
+        } else {
+            document.getElementById(showdomain).removeAttribute("hidden")
+        };
+        }
+    </script>
+
+</body>
 </html>

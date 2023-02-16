@@ -84,6 +84,9 @@
                                     <p><span>Doc.Identidad </span>: <%= user.document %></p>
                                 </div>
                                 <div class="bio-row">
+                                    <p><span>Legajo </span>: <%= user.file %></p>
+                                </div>
+                                <div class="bio-row">
                                     <p><span>Empresa </span>: <%= user.organization %></p>
                                 </div>
                                 <div class="bio-row">
@@ -115,6 +118,14 @@
                                 <div class="bio-row">
                                     <p><span>Usuario de red </span>: <% if (user.username) { %> crtp.corp\<%= user.username %> <% } else { %> Aún no posee<% } %></p>
                                 </div>
+                                <% if (user.external) {%>
+                                <div class="bio-row">
+                                    <p><span>Vencimiento de la cuenta</span>: 
+                                        <%  let duedate = new Date(user.userduedate);duedate = new Date(duedate.getFullYear(),duedate.getMonth(),duedate.getDate() + 1) %> 
+                                        <%= Intl.DateTimeFormat('en-GB').format(new Date(duedate)) %>
+                                    </p>
+                                </div>
+                                <% } %>
                             </div>
                             <% if (user.status == "it" && req.session.userCan.includes("usuarios_crear")) {%>
                             <a data-toggle="modal" href="#usercreated-<%= user.id %>"><button type="button" class="btn btn-vidt">Confirmar Alta de red</button></a>

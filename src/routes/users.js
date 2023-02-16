@@ -28,6 +28,7 @@ router.put("/down/:id", userController.userDown);
 router.put("/enable/:id", userController.userEnabled);
 router.put("/directenable/:id", userController.userDirectEnabled);
 router.put("/tempenable/:id", userController.userTempEnabled);
+router.put("/edituser/:id", userController.userUpdate);
 
 //Rutas delete
 router.delete("/destroy/:id", userController.usersDestroy);

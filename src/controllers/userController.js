@@ -3,7 +3,9 @@ const { DATE } = require("sequelize");
 const db = require("../database/models");
 const { Op } = require("sequelize");
 const { validationResult } = require('express-validator');
+require("datejs");
 const bcrypt = require('bcrypt');
+const ejs = require("ejs");
 
 const userController = {
     userList: async (req, res) => {
@@ -58,14 +60,19 @@ const userController = {
         if (req.body.maildomain != undefined){
             domain = req.body.maildomain
         };
-        let external = null;
-        if (req.body.external != undefined){
-            external = req.body.external
+        let userduedate = null;
+        if (req.body.userduedate != ""){
+            userduedate = req.body.userduedate
+        };
+        let file = "No Aplica";
+        if (req.body.file != undefined){
+            file = req.body.file
         };
         let newuser = await db.abmusers.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             document: req.body.doc,
+            file: file,
             position: req.body.position,
             location: req.body.location,
             phone: req.body.phone,
@@ -74,10 +81,10 @@ const userController = {
             department: req.body.department,
             organization: req.body.organization,
             chief: req.body.chief,
-            username: null,
+            username: req.body.external,
             external: external,
             maildomain: domain,
-            userduedate: req.body.userduedate,
+            userduedate: userduedate,
             mail: null,
             status: "it"
         })
@@ -102,12 +109,60 @@ const userController = {
     },
 
     userEdit: async (req, res) => {
+        let domains = await db.domains.findAll();
+        let organizations = await db.organizations.findAll();
+        let locations = await db.locations.findAll();
+        let departments = await db.departments.findAll();
+        let chiefs = await db.chiefs.findAll();
         let user = await db.abmusers.findOne({
             where:{
                 id: req.params.id
             }
         })
-        res.render("./users/usersEdit.ejs", { req, user });
+        res.render("./users/usersEdit.ejs", { req, user, domains, departments, locations, organizations, chiefs });
+    },
+
+    userUpdate: async (req, res) => {
+        let userToUpdate = await db.abmusers.findByPk(req.params.id);
+        let iphone = null;
+        if (req.body.iphone != undefined){
+            iphone = req.body.iphone
+        };
+        let username = userToUpdate.username;
+        if (userToUpdate.external != req.body.external && req.body.external == true){
+            username = userToUpdate.username + ".ext"
+        } else if (userToUpdate.external != req.body.external && req.body.external == false) {
+            username = userToUpdate.username.slice(0, -4)
+        }
+        let userduedate = null;
+        if (req.body.userduedate != ""){
+            userduedate = req.body.userduedate
+        };
+        let file = "No Aplica";
+        if (req.body.file != undefined){
+            file = req.body.file
+        };
+        userToUpdate.update({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            document: req.body.doc,
+            file: file,
+            position: req.body.position,
+            location: req.body.location,
+            phone: req.body.phone,
+            birthday: req.body.birthdate,
+            iphone: iphone,
+            department: req.body.department,
+            organization: req.body.organization,
+            chief: req.body.chief,
+            username: username,
+            external: req.body.external,
+            maildomain: req.body.maildomain,
+            userduedate: userduedate,
+            status: "enable_it"
+        });
+        await userToUpdate.createLog({description: "Usuario_Editado",userID: req.session.userLogged.id});
+        res.redirect('/users/list');
     },
 
     userCreated: async (req, res) => {

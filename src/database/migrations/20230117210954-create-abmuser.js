@@ -18,6 +18,9 @@ module.exports = {
       document: {
         type: Sequelize.STRING
       },
+      file: {
+        type: Sequelize.STRING
+      },
       position: {
         type: Sequelize.STRING
       },
