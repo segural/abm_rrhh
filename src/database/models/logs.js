@@ -16,14 +16,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"userlogs" });
       Logs.belongsTo(models.users, { foreignKey: 'userID', constraints: false, as:"users" });
       Logs.belongsTo(models.abmusers, { foreignKey: 'abmUserId', constraints: false, as:"abmusers" });
     }
   };
   Logs.init({
-    userID: DataTypes.INTEGER,
-    abmUserId: DataTypes.INTEGER,
+    userID: {type:DataTypes.INTEGER, allowNull: true},
+    abmUserId: {type:DataTypes.INTEGER, allowNull: true},
     logType: DataTypes.STRING,
+    logId: DataTypes.INTEGER,
     description: DataTypes.TEXT
   }, {
     sequelize,

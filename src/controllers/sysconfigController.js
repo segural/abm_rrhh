@@ -173,6 +173,11 @@ const sysconfigController = {
           active: true,
         });
         await newUser.addRoles(req.body.roles);
+        await newUser.createLog({description:'user_' + newUser.username + '_created',userID: req.session.userLogged.id})
+        let rolesGranted = await newUser.getRoles();
+        for (role of rolesGranted) {
+          await newUser.createLog({description:'user_role_' + role.name + '_granted',userID: req.session.userLogged.id})
+        };
         res.redirect("./intusers");
       } else {
         let roles = await db.roles.findAll();
@@ -212,7 +217,7 @@ const sysconfigController = {
             reset = true;
             newpass = 'Ab123456'
             pass = bcrypt.hashSync(newpass, 10)
-            // await userToEdit.createLog({action:'user_password_reset',userId: req.session.userLogged.id})
+            await userToEdit.createLog({description:'user_password_reset',userID: req.session.userLogged.id})
         } else {
             reset = false
             pass = userToEdit.password
@@ -226,6 +231,27 @@ const sysconfigController = {
           password: pass,
           });
         await userToEdit.setRoles(req.body.roles);
+        // Inicio log de cambios
+            
+        let previousRoles = await db.roles.findAll(                
+          { where: {id: selectedRoles} } // Same as using `id: { [Op.in]: [1,2,3] }` 
+        );
+        let previousRolesNames =[];
+        previousRoles.forEach((role) => {previousRolesNames.push(role.name)});
+        let currentRoles = await db.roles.findAll(                
+          { where: { id: req.body.roles }} // Same as using `id: { [Op.in]: [1,2,3] }`
+        );
+        let currentRolesNames =[];
+        currentRoles.forEach((role) => {currentRolesNames.push(role.name)});
+        let rolesGranted = currentRolesNames.filter( role => { return !previousRolesNames.includes(role)});
+        for (role of rolesGranted) {
+            await userToEdit.createLog({description:'user_role_' + role + '_granted',userID: req.session.userLogged.id})
+        };
+        let rolesRemoved = previousRolesNames.filter( role => { return !currentRolesNames.includes(role)});
+        for (role of rolesRemoved) {
+            await userToEdit.createLog({description:'user_role_' + role + '_removed',userID: req.session.userLogged.id})
+        };
+        // Fin log de cambios
         res.redirect('/sysconfig/intusers');
     } else{
         return res.render ('./sysconfig/users/usersEdit', {req, errors:errors.mapped(), userToEdit, roles, selectedRoles});
@@ -236,10 +262,10 @@ const sysconfigController = {
     let userToEdit = await db.users.findByPk(req.params.id);
     if (userToEdit.active) {
       await userToEdit.update({ active: false });
-      // await userToEdit.createLog({ action: "user_disabled", userId: req.session.userLogged.id });
+      await userToEdit.createLog({ description: "user_disabled", userID: req.session.userLogged.id });
     } else {
       await userToEdit.update({ active: true });
-      // await userToEdit.createLog({ action: "user_enabled", userId: req.session.userLogged.id });
+      await userToEdit.createLog({ description: "user_enabled", userID: req.session.userLogged.id });
     }
     res.redirect("/sysconfig/intusers");
   },
@@ -247,7 +273,8 @@ const sysconfigController = {
   userDestroy: async (req, res) => {
     let userToDelete = await db.users.findByPk(req.params.id);
     await userToDelete.destroy();
-    res.redirect("./");
+    await userToDelete.createLog({description:'user_' + userToDelete.username + '_deleted',userID: req.session.userLogged.id})
+    res.redirect("/sysconfig/intusers");
   },
 
   // ABM de roles

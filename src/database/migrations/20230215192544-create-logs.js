@@ -14,6 +14,9 @@ module.exports = {
       abmUserId: {
         type: Sequelize.INTEGER
       },
+      logId: {
+        type: Sequelize.INTEGER
+      },
       logType: {
         type: Sequelize.STRING
       },
