@@ -19,18 +19,18 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
       })
       users.hasMany(models.Logs, {
-        as:'logs',
-       foreignKey: 'logId',
-       constraints: false,
-       scope: {
-         logType: 'Users'
-       }
-     })
-     users.hasMany(models.Logs, {
-      as:'userLogs',
-      foreignKey: 'userID',
-      timestamps: false,
-    })
+      as:'logs',
+      foreignKey: 'logId',
+      constraints: false,
+      scope: {
+        logType: 'internalUsers'
+        }
+      })
+      users.hasMany(models.Logs, {
+        as:'userLogs',
+        foreignKey: 'userID',
+        timestamps: false,
+      })
     }
   }
   users.init({

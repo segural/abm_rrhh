@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       abmusers.hasMany(models.Logs, {
-        as:'abmusers',
-        foreignKey: 'abmUserId',
-        timestamps: false,
-        scope: {
-          logType: 'Users'
-        }
+      as:'logs',
+      foreignKey: 'logId',
+      timestamps: false,
+      scope: {
+        logType: 'Users'
+      }
     })
     }
   }

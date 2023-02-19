@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      organizations.hasMany(models.Logs, {
+        as:'logs',
+        foreignKey: 'logId',
+        constraints: false,
+        scope: {
+          logType: 'system'
+          }
+      })
     }
   };
   organizations.init({

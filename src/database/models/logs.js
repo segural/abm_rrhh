@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"userlogs" });
       Logs.belongsTo(models.users, { foreignKey: 'userID', constraints: false, as:"users" });
       Logs.belongsTo(models.abmusers, { foreignKey: 'abmUserId', constraints: false, as:"abmusers" });
+      Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"chieflogs" });
+      Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"departmentlogs" });
+      Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"domainlogs" });
+      Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"locationlogs" });
+      Logs.belongsTo(models.users, { foreignKey: 'logId', constraints: false, as:"organizationlogs" });
     }
   };
   Logs.init({

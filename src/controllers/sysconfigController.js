@@ -12,15 +12,17 @@ const sysconfigController = {
   },
 
   domainStore: async (req, res) => {
-    await db.domains.create({
+    let newDomain = await db.domains.create({
       domainName: req.body.name,
     });
+    await newDomain.createLog({description:'dominio_' + newDomain.domainName + '_creado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/domains");
   },
 
   domainDestroy: async (req, res) => {
     let domainToDelete = await db.domains.findByPk(req.params.id);
     await domainToDelete.destroy();
+    await domainToDelete.createLog({description:'dominio_' + domainToDelete.domainName + '_eliminado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/domains");
   },
 
@@ -30,15 +32,17 @@ const sysconfigController = {
   },
 
   organizationStore: async (req, res) => {
-    await db.organizations.create({
+    let newOrganization = await db.organizations.create({
       name: req.body.name,
     });
+    await newOrganization.createLog({description:'organización_' + newOrganization.name + '_creado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/organizations");
   },
 
   organizationDestroy: async (req, res) => {
     let orgaToDelete = await db.organizations.findByPk(req.params.id);
     await orgaToDelete.destroy();
+    await orgaToDelete.createLog({description:'organización_' + orgaToDelete.name + '_eliminado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/organizations");
   },
 
@@ -48,15 +52,17 @@ const sysconfigController = {
   },
 
   locationStore: async (req, res) => {
-    await db.locations.create({
+    let newLocation = await db.locations.create({
       name: req.body.name,
     });
+    await newLocation.createLog({description:'ubicación_' + newLocation.name + '_creado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/locations");
   },
 
   locationDestroy: async (req, res) => {
     let locationToDelete = await db.locations.findByPk(req.params.id);
     await locationToDelete.destroy();
+    await locationToDelete.createLog({description:'ubicación_' + locationToDelete.name + '_eliminado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/locations");
   },
 
@@ -66,15 +72,17 @@ const sysconfigController = {
   },
 
   departmentStore: async (req, res) => {
-    await db.departments.create({
+    let newDepartment = await db.departments.create({
       name: req.body.name,
     });
+    await newDepartment.createLog({description:'departamento_' + newDepartment.name + '_creado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/departments");
   },
 
   departmentDestroy: async (req, res) => {
     let departmentToDelete = await db.departments.findByPk(req.params.id);
     await departmentToDelete.destroy();
+    await departmentToDelete.createLog({description:'departamento_' + departmentToDelete.name + '_eliminado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/departments");
   },
 
@@ -85,18 +93,20 @@ const sysconfigController = {
   },
 
   chiefStore: async (req, res) => {
-    await db.chiefs.create({
+    let newChief = await db.chiefs.create({
       userName: req.body.username,
       fullName: req.body.fullname,
       email: req.body.email,
       department: req.body.dpto,
     });
+    await newChief.createLog({description:'jefe_' + newChief.userName + '_creado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/chiefs");
   },
 
   chiefDestroy: async (req, res) => {
     let chiefToDelete = await db.chiefs.findByPk(req.params.id);
     await chiefToDelete.destroy();
+    await chiefToDelete.createLog({description:'jefe_' + chiefToDelete.userName + '_eliminado', userID: req.session.userLogged.id});
     res.redirect("/sysconfig/chiefs");
   },
 
@@ -173,10 +183,10 @@ const sysconfigController = {
           active: true,
         });
         await newUser.addRoles(req.body.roles);
-        await newUser.createLog({description:'user_' + newUser.username + '_created',userID: req.session.userLogged.id})
+        await newUser.createLog({description:'usuario_' + newUser.username + '_creado',userID: req.session.userLogged.id});
         let rolesGranted = await newUser.getRoles();
         for (role of rolesGranted) {
-          await newUser.createLog({description:'user_role_' + role.name + '_granted',userID: req.session.userLogged.id})
+          await newUser.createLog({description:'usuario_rol_' + role.name + '_asignado',userID: req.session.userLogged.id})
         };
         res.redirect("./intusers");
       } else {
@@ -217,7 +227,7 @@ const sysconfigController = {
             reset = true;
             newpass = 'Ab123456'
             pass = bcrypt.hashSync(newpass, 10)
-            await userToEdit.createLog({description:'user_password_reset',userID: req.session.userLogged.id})
+            await userToEdit.createLog({description:'usuario_resetear_password',userID: req.session.userLogged.id})
         } else {
             reset = false
             pass = userToEdit.password
@@ -245,11 +255,11 @@ const sysconfigController = {
         currentRoles.forEach((role) => {currentRolesNames.push(role.name)});
         let rolesGranted = currentRolesNames.filter( role => { return !previousRolesNames.includes(role)});
         for (role of rolesGranted) {
-            await userToEdit.createLog({description:'user_role_' + role + '_granted',userID: req.session.userLogged.id})
+            await userToEdit.createLog({description:'usuario_rol_' + role + '_asignado',userID: req.session.userLogged.id})
         };
         let rolesRemoved = previousRolesNames.filter( role => { return !currentRolesNames.includes(role)});
         for (role of rolesRemoved) {
-            await userToEdit.createLog({description:'user_role_' + role + '_removed',userID: req.session.userLogged.id})
+            await userToEdit.createLog({description:'usuario_rol_' + role + '_removido',userID: req.session.userLogged.id})
         };
         // Fin log de cambios
         res.redirect('/sysconfig/intusers');
@@ -262,10 +272,10 @@ const sysconfigController = {
     let userToEdit = await db.users.findByPk(req.params.id);
     if (userToEdit.active) {
       await userToEdit.update({ active: false });
-      await userToEdit.createLog({ description: "user_disabled", userID: req.session.userLogged.id });
+      await userToEdit.createLog({ description: 'usuario_' + userToEdit.username + '_deshabilitado', userID: req.session.userLogged.id });
     } else {
       await userToEdit.update({ active: true });
-      await userToEdit.createLog({ description: "user_enabled", userID: req.session.userLogged.id });
+      await userToEdit.createLog({ description: 'usuario_' + userToEdit.username + '_habilitado', userID: req.session.userLogged.id });
     }
     res.redirect("/sysconfig/intusers");
   },
@@ -273,7 +283,7 @@ const sysconfigController = {
   userDestroy: async (req, res) => {
     let userToDelete = await db.users.findByPk(req.params.id);
     await userToDelete.destroy();
-    await userToDelete.createLog({description:'user_' + userToDelete.username + '_deleted',userID: req.session.userLogged.id})
+    await userToDelete.createLog({description:'usuario_' + userToDelete.username + '_eliminado',userID: req.session.userLogged.id})
     res.redirect("/sysconfig/intusers");
   },
 

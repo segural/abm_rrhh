@@ -81,13 +81,13 @@ const userController = {
             department: req.body.department,
             organization: req.body.organization,
             chief: req.body.chief,
-            username: req.body.external,
-            external: external,
+            external: req.body.external,
             maildomain: domain,
             userduedate: userduedate,
             mail: null,
             status: "it"
         })
+        await newuser.createLog({description:'usuario_' + newuser.firstName + '_' + newuser.lastName + '_creado', abmUserId: newuser.id, userID: req.session.userLogged.id});
         res.redirect('/users/list');
     } else {
         let domains = await db.domains.findAll();
@@ -161,7 +161,7 @@ const userController = {
             userduedate: userduedate,
             status: "enable_it"
         });
-        await userToUpdate.createLog({description: "Usuario_Editado",userID: req.session.userLogged.id});
+        await userToUpdate.createLog({description:'usuario_' + userToUpdate.firstName + '_' + userToUpdate.lastName + '_editado', abmUserId: userToUpdate.id, userID: req.session.userLogged.id});
         res.redirect('/users/list');
     },
 
@@ -177,6 +177,7 @@ const userController = {
             ipphone: phone,
             status: "ok"
         });
+        await user.createLog({description:'usuario_' + user.username + '_alta', abmUserId: user.id, userID: req.session.userLogged.id});
         res.render("./users/usersDetail.ejs", { req, user });
     },
 
@@ -185,6 +186,7 @@ const userController = {
         await userDisabled.update({
             status: "it_disable"
         });
+        await userDisabled.createLog({description:'usuario_' + userDisabled.username + '_deshabilitado', abmUserId: userDisabled.id, userID: req.session.userLogged.id});
         res.redirect('/users/list')
     },
 
@@ -193,6 +195,7 @@ const userController = {
         await userDisabled.update({
             status: "disabled"
         });
+        await userDisabled.createLog({description:'usuario_' + userDisabled.username + '_baja', abmUserId: userDisabled.id, userID: req.session.userLogged.id});
         res.redirect('/users/list')
     },
 
@@ -223,6 +226,7 @@ const userController = {
     usersDestroy: async (req, res) => {
         let userToDelete = await db.abmusers.findByPk(req.params.id);
         await userToDelete.destroy();
+        await userToDelete.createLog({description:'usuario_' + userToDelete.username + '_eliminado', abmUserId: userToDelete.id, userID: req.session.userLogged.id});
         res.redirect('/users/list');
     },
 }
