@@ -353,27 +353,27 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody><tr><td height="30"></td></tr>
 <tr bgcolor="#F1F2F7">
-<td align="center" bgcolor="#F1F2F7" valign="top" width="100%">
+<td align="left" bgcolor="#F1F2F7" valign="top" width="100%">
 
 <!--  top header -->
-<table class="container" align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+<table class="container" align="left" border="0" cellpadding="0" cellspacing="0" width="600">
     <tbody>
-    <tr bgcolor="00783F"><td height="15"></td></tr>
+    <tr bgcolor="bd5757"><td height="15"></td></tr>
 
-    <tr bgcolor="00783F">
-        <td align="center">
-            <table class="container-middle" align="center" border="0" cellpadding="0" cellspacing="0" width="560">
+    <tr bgcolor="bd5757">
+        <td align="left">
+            <table class="container-middle" align="left" border="0" cellpadding="0" cellspacing="0" width="560">
                 <tbody><tr>
                     <td>
                         <table class="top-header-left" align="left" border="0" cellpadding="0" cellspacing="0">
                             <tbody><tr>
-                                <td align="center">
+                                <td align="left">
                                     <table class="date" border="0" cellpadding="0" cellspacing="0">
                                         <tbody><tr>
                                             <td>&nbsp;&nbsp;</td>
-                                            <td style="color: #fefefe; font-size: 25px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
+                                            <td style="color: #fefefe; font-size: 20px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
                                                 <singleline>
-                                                    ADAMA
+                                                    Sistema ABM - Usuarios
                                                 </singleline>
                                             </td>
                                         </tr>
@@ -385,30 +385,13 @@
                         <table class="top-header-right" align="left" border="0" cellpadding="0" cellspacing="0">
                             <tbody><tr><td height="20" width="30"></td></tr>
                             </tbody></table>
-
-                        <table class="top-header-right" align="right" border="0" cellpadding="0" cellspacing="0">
-                            <tbody><tr>
-                                <td align="center">
-                                    <table class="tel" align="center" border="0" cellpadding="0" cellspacing="0">
-                                        <tbody><tr>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td style="color: #fefefe; font-size: 18px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
-                                                <singleline>
-                                                    Se asignó al sector un comprobante para analizar
-                                                </singleline>
-                                            </td>
-                                        </tr>
-                                        </tbody></table>
-                                </td>
-                            </tr>
-                            </tbody></table>
                     </td>
                 </tr>
                 </tbody></table>
         </td>
     </tr>
 
-    <tr bgcolor="00783F"><td height="10"></td></tr>
+    <tr bgcolor="bd5757"><td height="10"></td></tr>
 
     </tbody>
 </table>
@@ -417,7 +400,7 @@
 
 
 <!-- main content -->
-<table class="container" align="center"  border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="ffffff">
+<table class="container" align="left"  border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="ffffff">
 
 
 <!--Header-->
@@ -425,10 +408,10 @@
 
 <tr>
     <td>
-        <table class="container-middle" align="center" border="0" cellpadding="0" cellspacing="0" width="560">
+        <table class="container-middle" align="left" border="0" cellpadding="0" cellspacing="0" width="560" style="padding-left: 25px;">
             <tbody><tr>
-                <td align="center">
-                <span style="font-size: 23px; color: grey; font-weight: 700;"> Comprobante: <%= invoiceToApprove.number %> <br> Proveedor: <%= invoiceToApprove.suppliers.name %> </span>
+                <td align="left">
+                <span style="font-size: 17px; color: grey; font-weight: 700;">El usuario <%= user.firstName %> <%= user.lastName %> ha recibido una modificación.</span>
                 </td>
             </tr>
             </tbody></table>
@@ -442,10 +425,10 @@
 <!--section 1 -->
 <tr>
     <td>
-        <table class="container-middle" align="center" border="0" cellpadding="0" cellspacing="0" width="560" bgcolor="F1F2F7">
+        <table class="container-middle" align="left" border="0" cellpadding="0" cellspacing="0" width="560" bgcolor="F1F2F7">
             <tr >
                 <td>
-                    <table class="mainContent" align="center" border="0" cellpadding="0" cellspacing="0" width="528">
+                    <table class="mainContent" align="left" border="0" cellpadding="0" cellspacing="0" width="528">
                         <tbody><tr><td height="20"></td></tr>
                         <tr>
                             <td>
@@ -458,28 +441,71 @@
                                     <tbody><tr><td height="30" width="30"></td></tr>
                                     </tbody></table>
 
-                                <table class="section-item" align="center" border="0" cellpadding="0" cellspacing="0" width="360">
+                                <table class="section-item" align="left" border="0" cellpadding="0" cellspacing="0" width="360">
                                     <tbody><tr>
                                         <td style="color: #484848; font-size: 16px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
-
-                                            Sector <%= sector %>   
-
                                         </td>
                                     </tr>
                                     <tr><td height="15"></td></tr>
                                     <tr>
                                         <td  style="color: #a4a4a4; line-height: 25px; font-size: 12px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
+
+                                            <p style="color: #000000;">La modificación fue realizada por: <%= internaluser.fullName %></p>
+                                            <p style="color: #000000;">Los datos modificados son:</p>
+                                            <ul>
+                                                <% if (olddata.firstName != newdata.firstName) {%>
+                                                <li><b>Nombre:</b> <%= newdata.firstName %></li>
+                                                <% } %>
+                                                <% if (olddata.lastName != newdata.lastName) {%>
+                                                <li><b>Apellido:</b> <%= newdata.lastName %></li>
+                                                <% } %>
+                                                <% if (olddata.document != newdata.doc) {%>
+                                                <li><b>Documento:</b> <%= newdata.doc %></li>
+                                                <% } %>
+                                                <% if (olddata.file != newdata.file) {%>
+                                                <li><b>Legajo:</b> <%= newdata.file %></li>
+                                                <% } %>
+                                                <% if (olddata.position != newdata.position) {%>
+                                                <li><b>Posición:</b> <%= newdata.position %></li>
+                                                <% } %>
+                                                <% if (olddata.location != newdata.location) {%>
+                                                <li><b>Ctro Atención:</b> <%= newdata.location %></li>
+                                                <% } %>
+                                                <% if (olddata.phone != newdata.phone) {%>
+                                                <li><b>Teléfono:</b> <%= newdata.phone %></li>
+                                                <% } %>
+                                                <% if (olddata.iphone != newdata.iphone) {%>
+                                                <li><b>Teléfono IP:</b> <%= newdata.iphone %></li>
+                                                <% } %>
+                                                <% if (olddata.birthdate != newdata.birthdate) {%>
+                                                <li><b>Nacimiento:</b> <%= newdata.birthdate %></li>
+                                                <% } %>
+                                                <% if (olddata.department != newdata.department) {%>
+                                                <li><b>Departamento:</b> <%= newdata.department %></li>
+                                                <% } %>
+                                                <% if (olddata.organization != newdata.organization) {%>
+                                                <li><b>Empresa:</b> <%= newdata.organization %></li>
+                                                <% } %>
+                                                <% if (olddata.chief != newdata.chief) {%>
+                                                <li><b>Jefe Directo:</b> <%= newdata.chief %></li>
+                                                <% } %>
+                                                <% if (olddata.username != username) {%>
+                                                <li><b>Usuario de red:</b> crtp.corp\<%= username %></li>
+                                                <% } %>
+                                                <% if (olddata.maildomain != newdata.maildomain) {%>
+                                                <li><b>Dominio Mail:</b> <%= newdata.maildomain %></li>
+                                                <% } %>
+                                                <% if (olddata.userduedate != newdata.userduedate) {%>
+                                                <li><b>Fecha de expiración:</b> <%= newdata.userduedate %></li>
+                                                <% } %>
+                                            </ul>
                                             
-                                            Tiene una solicitud de aprobación de comprobante pendiente<br> 
-                                            Ingrese al sistema para verificar.<br> 
+                                            <a href="http://localhost:8000" style="text-decoration: none">Puede verificar ingresando al sistema</a>
 
                                         </td>
                                     </tr>
                                     <tr><td height="15"></td></tr>
                                     <tr>
-                                        <td>
-                                            <a href="http://proveedores.adamaservicios.com/gestion"  style="background-color: #00783F; font-size: 12px; padding: 10px 15px; color: #fff; text-decoration: none"> Click aquí para ingresar al sistema</a>
-                                        </td>
                                     </tr>
                                     </tbody></table>
                             </td>
@@ -503,9 +529,8 @@
 
 
 <tr>
-    <td  style="color: #939393; font-size: 11px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;" class="prefooter-subheader" align="center">
+    <td  style="color: #939393; font-size: 11px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;" class="prefooter-subheader" align="left">
 
-        <span style="color: #00783F"> </span>  &nbsp;&nbsp;&nbsp;   <span style="color: #00783F">Dirección :</span> Tronador 4890 – 8° Piso    &nbsp;&nbsp;&nbsp;<span style="color: #00783F"> </span>
 
 
     </td>
@@ -517,21 +542,19 @@
 
 
 <!-- footer -->
-<table class="container" border="0" cellpadding="0" cellspacing="0" width="600">
+<!-- <table class="container" border="0" cellpadding="0" cellspacing="0" width="600">
     <tbody>
-    <tr bgcolor="00783F"><td height="15"></td></tr>
-    <tr bgcolor="00783F">
-        <td  style="color: #fff; font-size: 10px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;" align="center">
-
-            Adama © Copyright 2021. All Rights Reserved
+    <tr bgcolor="bd5757"><td height="15"></td></tr>
+    <tr bgcolor="bd5757">
+        <td  style="color: #fff; font-size: 10px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;" align="left">
 
         </td>
     </tr>
 
     <tr>
-        <td bgcolor="00783F" height="14"></td>
+        <td bgcolor="bd5757" height="14"></td>
     </tr>
-    </tbody></table>
+    </tbody></table> -->
 <!-- end footer-->
 </td>
 </tr>

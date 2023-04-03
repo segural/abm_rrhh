@@ -193,9 +193,49 @@
                 </form>
                 <!-- modal -->
             </section>
-                </aside>
-            </div>
-
+            <section class="card">
+                <div div class="card-body bio-graph-info">
+                    <h1>Logs del usuario</h1>
+                </div>
+                <div class="adv-table">
+                    <div class="adv-table">
+                        <table  class="display table table-bordered table-striped" id="supplier-logs">
+                            <thead>
+                                <tr>
+                                    <th> Log Type</th>
+                                    <th> Acción</th>
+                                    <th> Realizado por:</th>
+                                    <th> Día y Horario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (log of user.logs) {%>
+                                    <tr>
+                                        <td><%= log.logType %></td>
+                                        <td><%= log.description %></td>
+                                        <td><%= log.users.fullName %></td>
+                                        <td>
+                                        <%  let date = new Date(log.createdAt);date = new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes()) %> 
+                                        <%= Intl.DateTimeFormat('en-GB',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12: false}).format(new Date(date)) %>
+                                        </td>                                    
+                                    </tr>
+                                <% } %>                              
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th> Log Type</th>
+                                    <th> Acción</th>
+                                    <th> Realizado por:</th>
+                                    <th> Día y Horario</th>
+                                </tr>                                          
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </div>
+ 
             <!-- page end-->
         </section>
     </section>
