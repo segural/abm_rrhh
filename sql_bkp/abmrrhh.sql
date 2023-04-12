@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 05-04-2023 a las 14:34:50
+-- Tiempo de generación: 12-04-2023 a las 18:20:35
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `abm_abmrrhh`
+-- Base de datos: `abmrrhh`
 --
 
 -- --------------------------------------------------------
@@ -63,7 +63,8 @@ INSERT INTO `abmusers` (`id`, `firstName`, `lastName`, `document`, `file`, `posi
 (8, 'Enzo', 'Fernandez', '33568996', '2356', 'Volante', 'Hospital Español', 52369856, '1986-02-22 00:00:00', 52365, 'Area Médica', 'Ceditrin SRL', 'Jorge Chiozza', 'fernendeze', 0, 'ceditrin.com.ar', '9999-12-31 00:00:00', 'Enzo.Fernandez@ceditrin.com.ar', 'it_disable', '2023-02-10 17:02:49', '2023-02-10 17:03:21'),
 (9, 'Joel', 'Last', '56895658', 'No Aplica', 'Tranportador', 'Billinghurst', 1133555976, '1995-05-23 00:00:00', NULL, 'Operaciones', 'Vidt CentroMedico SRL', 'Delia Cuellar', NULL, 0, 'rtp.com.ar', '9999-12-31 00:00:00', NULL, 'it', '2023-02-14 17:25:47', '2023-02-14 17:25:47'),
 (10, 'Pizza', 'Party', '52658956', '2535', 'Bla', 'Vidt', 1133555976, '1979-02-21 00:00:00', NULL, 'Area Física', 'Terapia Radiante SRL', 'Luciano Segura', NULL, 0, 'rtp.com.ar', NULL, NULL, 'it', '2023-02-28 20:00:53', '2023-02-28 20:00:53'),
-(12, 'Pepe', 'Argento', '5896695', '526', 'Hinchador de pelotas', 'Hospital Español', 1133555976, '1910-08-15 00:00:00', 10408, 'Operaciones', 'Ceditrin SRL', 'Delia Cuellar', 'argentop', 0, 'ceditrin.com.ar', NULL, 'pepe.argento@ceditrin.com.ar', 'ok', '2023-03-08 18:01:38', '2023-03-08 18:21:15');
+(12, 'Pepe', 'Argento', '5896695', '526', 'Hinchador de pelotas', 'Hospital Español', 1133555976, '1910-08-15 00:00:00', 10408, 'Operaciones', 'Ceditrin SRL', 'Delia Cuellar', 'argentop', 0, 'ceditrin.com.ar', NULL, 'pepe.argento@ceditrin.com.ar', 'ok', '2023-03-08 18:01:38', '2023-03-08 18:21:15'),
+(13, 'Lorena', 'Meza', '28165587', '2568', 'Accounting', 'Billinghurst', 1133555976, '1980-05-06 00:00:00', 10241, 'Sistemas', 'Vidt CentroMedico SRL', 'Luciano Segura', 'mezal', 0, 'rtp.com.ar', NULL, 'lorena.meza@rtp.com.ar', 'ok', '2023-04-12 17:41:30', '2023-04-12 17:44:10');
 
 -- --------------------------------------------------------
 
@@ -182,7 +183,9 @@ CREATE TABLE `logs` (
 
 INSERT INTO `logs` (`id`, `userID`, `abmUserId`, `logType`, `logId`, `description`, `createdAt`, `updatedAt`) VALUES
 (73, 1, 12, 'Users', 12, 'usuario_Pepe_Argento_creado', '2023-03-08 18:01:38', '2023-03-08 18:01:38'),
-(74, 1, 12, 'Users', 12, 'usuario_argentop_alta', '2023-03-08 18:21:15', '2023-03-08 18:21:15');
+(74, 1, 12, 'Users', 12, 'usuario_argentop_alta', '2023-03-08 18:21:15', '2023-03-08 18:21:15'),
+(75, 1, 13, 'Users', 13, 'RRHH_solicitud_usuario', '2023-04-12 17:41:30', '2023-04-12 17:41:30'),
+(76, 1, 13, 'Users', 13, 'IT_usuario_alta', '2023-04-12 17:44:10', '2023-04-12 17:44:10');
 
 -- --------------------------------------------------------
 
@@ -228,16 +231,13 @@ INSERT INTO `permissions` (`id`, `name`, `description`, `createdAt`, `updatedAt`
 (1, 'abm_users', 'Permite solicitar un Alta de usuario y ver los Pendientes', '2023-01-23 20:34:55', '2023-01-30 00:43:15'),
 (2, 'system_admin', 'Permite acceder a la Config del Sistema', '2023-01-23 20:34:55', '2023-01-23 20:34:55'),
 (3, 'roles_gestionar', 'Permite gestionar los roles', '2023-01-29 11:05:31', '2023-01-29 11:05:31'),
-(4, 'roles_editar', 'Permite editar los roles', '2023-01-29 11:06:16', '2023-01-29 11:06:16'),
-(5, 'roles_eliminar', 'Permite eliminar los roles', '2023-01-29 11:06:16', '2023-01-29 11:06:16'),
 (6, 'usuarios_gestionar', 'Permite gestión de usuarios', '2023-01-30 13:28:46', '2023-01-30 13:28:46'),
 (7, 'usuarios_crear', 'Permite crear usuarios', '2023-01-30 13:29:05', '2023-01-30 13:29:05'),
 (8, 'usuarios_editar', 'Permite editar usuarios', '2023-01-30 13:29:27', '2023-01-30 13:29:27'),
 (9, 'usuarios_eliminar', 'Permite eliminar usuarios', '2023-01-30 13:29:44', '2023-01-30 13:29:44'),
 (10, 'permisos_gestionar', 'Permite gestión de permisos', '2023-01-31 19:53:13', '2023-01-31 19:53:13'),
-(11, 'permisos_editar', 'Permite editar los permisos', '2023-01-31 22:55:52', '2023-01-31 22:55:52'),
-(12, 'permisos_eliminar', 'Permite eliminar los permisos', '2023-01-31 22:56:11', '2023-01-31 22:56:11'),
-(13, 'usuarios_deshabilitar', 'Permite que sistemas marque al usuario como deshabilitado', '2023-02-10 15:51:44', '2023-02-10 15:52:02');
+(13, 'usuarios_deshabilitar', 'Permite que sistemas marque al usuario como deshabilitado', '2023-02-10 15:51:44', '2023-02-10 15:52:02'),
+(14, 'usuarios_del_sistema', 'Permiso para gestionar los usuarios internos del sistema', '2023-04-12 18:06:15', '2023-04-12 18:06:15');
 
 -- --------------------------------------------------------
 
@@ -256,19 +256,26 @@ CREATE TABLE `permissions_roles` (
 --
 
 INSERT INTO `permissions_roles` (`id`, `role_Id`, `permissionId`) VALUES
-(77, 1, 1),
-(78, 1, 2),
-(79, 1, 3),
-(80, 1, 4),
-(81, 1, 5),
-(82, 1, 6),
-(83, 1, 7),
-(84, 1, 8),
-(85, 1, 9),
-(86, 1, 10),
-(87, 1, 11),
-(88, 1, 12),
-(90, 1, 13);
+(91, 2, 1),
+(92, 2, 2),
+(93, 2, 7),
+(94, 2, 8),
+(95, 2, 9),
+(96, 2, 13),
+(113, 3, 1),
+(114, 3, 6),
+(115, 3, 8),
+(116, 3, 13),
+(117, 1, 1),
+(118, 1, 2),
+(119, 1, 3),
+(120, 1, 6),
+(121, 1, 7),
+(122, 1, 8),
+(123, 1, 9),
+(124, 1, 10),
+(125, 1, 13),
+(126, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -288,7 +295,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
-(1, 'SysAdmin', '2023-01-23 20:35:20', '2023-02-07 18:25:01');
+(1, 'SysAdmin', '2023-01-23 20:35:20', '2023-04-12 18:05:06'),
+(2, 'Sistemas', '2023-04-12 17:45:36', '2023-04-12 17:45:36'),
+(3, 'RecursosHumanos', '2023-04-12 17:46:01', '2023-04-12 17:59:42');
 
 -- --------------------------------------------------------
 
@@ -308,35 +317,9 @@ CREATE TABLE `roles_users` (
 
 INSERT INTO `roles_users` (`id`, `userId`, `roleId`) VALUES
 (3, 1, 1),
-(4, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `sequelizemeta`
---
-
-CREATE TABLE `sequelizemeta` (
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `sequelizemeta`
---
-
-INSERT INTO `sequelizemeta` (`name`) VALUES
-('20230117210954-create-abmuser.js'),
-('20230117212339-create-user.js'),
-('20230117212424-create-role.js'),
-('20230117212436-create-permission.js'),
-('20230117212514-create-role-permission.js'),
-('20230124190602-create-domains.js'),
-('20230124190654-create-organizations.js'),
-('20230124191059-create-locations.js'),
-('20230124191112-create-departments.js'),
-('20230124212514-create-roles_users.js'),
-('20230131192640-create-chiefs.js'),
-('20230215192544-create-logs.js');
+(4, 2, 1),
+(5, 3, 3),
+(6, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -362,7 +345,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `fullName`, `username`, `mail`, `password`, `active`, `resetFlag`, `createdAt`, `updatedAt`) VALUES
 (1, 'Luciano Segura', 'segural', 'luciano.segura@rtp.com.ar', '$2b$10$hO8swcb6if3TLwtnAafzAeldw5G4qRkBDvyYsp4pDAP9ejZHauS6i', 1, 0, '2023-01-23 20:28:08', '2023-01-30 20:24:23'),
-(2, 'Flavio Salinas', 'salinasf', 'flavio.salinas@rtp.com.ar', '$2b$10$nrP5.AeP3KLYyk7UB5B7Ee05hD9G6WsnajFtE5O7DL/jxCGeeoAu.', 1, 0, '2023-01-26 10:37:00', '2023-01-26 10:37:00');
+(2, 'Flavio Salinas', 'salinasf', 'flavio.salinas@rtp.com.ar', '$2b$10$nrP5.AeP3KLYyk7UB5B7Ee05hD9G6WsnajFtE5O7DL/jxCGeeoAu.', 1, 0, '2023-01-26 10:37:00', '2023-01-26 10:37:00'),
+(3, 'rrhh', 'rrhh', 'rrhh@rtp.com.ar', '$2b$10$4U6ToYSha9OZBLJ0yD4KKum0C7vMiG/7UrjdvfUsQObPlo5gYCZ06', 1, 0, '2023-04-12 17:53:53', '2023-04-12 17:53:53'),
+(4, 'sistemas', 'sistemas', 'it@rtp.com.ar', '$2b$10$CtApBffUXnAPfamIKvM52u1bOVZBVOsp639aWJtpS7.aHM5b99vkm', 1, 0, '2023-04-12 17:54:23', '2023-04-12 17:54:23');
 
 --
 -- Índices para tablas volcadas
@@ -435,13 +420,6 @@ ALTER TABLE `roles_users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `sequelizemeta`
---
-ALTER TABLE `sequelizemeta`
-  ADD PRIMARY KEY (`name`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -455,7 +433,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `abmusers`
 --
 ALTER TABLE `abmusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `chiefs`
@@ -485,7 +463,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de la tabla `organizations`
@@ -497,31 +475,31 @@ ALTER TABLE `organizations`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `permissions_roles`
 --
 ALTER TABLE `permissions_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `roles_users`
 --
 ALTER TABLE `roles_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

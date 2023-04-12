@@ -71,9 +71,11 @@
                                                 <td><%= user.department %> </td>
                                                 <td><span class="badge badge-danger label-mini">Deshabilitado</span></td>
                                                 <td class="center hidden-phone">
+                                                        <% if (req.session.userCan.includes("usuarios_eliminar")) {%>
                                                         <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
                                                             <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
                                                         </a>
+                                                        <% } %>
                                                         <% if (req.session.userCan.includes("usuarios_gestionar")) {%>
                                                             <a data-toggle="modal" href="#EnableAccount-<%= user.id %>">
                                                                 <button class="btn btn-secondary btn-sm" type="button"><i class="fa fa-arrow-up"></i></button>

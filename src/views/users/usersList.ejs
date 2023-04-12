@@ -53,7 +53,9 @@
                             </span>
                             </header>
                         <div class="card-body table-responsive">
+                            <% if (req.session.userCan.includes("usuarios_gestionar")) { %>
                             <a href="/users/new"><button type="button" class="btn btn-vidt" style="margin-bottom: 15px;">Nuevo Usuario</button></a>
+                            <% } %>
                             <div class="adv-table" style="max-width: 1000px;">
                                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                                     <thead>
@@ -81,7 +83,7 @@
                                                         <a href="/users/detail/<%= user.id %>">
                                                             <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></button>
                                                         </a>
-                                                        <% if (req.session.userCan.includes("usuarios_gestionar")) {%>
+                                                        <% if (req.session.userCan.includes("usuarios_deshabilitar")) {%>
                                                         <a data-toggle="modal" href="#DisableAccount-<%= user.id %>">
                                                             <button class="btn btn-secondary btn-sm" type="button"><i class="fa fa-arrow-down"></i></button>
                                                         </a>

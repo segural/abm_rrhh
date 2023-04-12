@@ -56,7 +56,9 @@
 
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active nav-item"><a class="nav-link" href="/users/detail/<%= user.id %>"> <i class="fa fa-user"></i> Profile</a></li>
+                            <% if (req.session.userCan.includes("usuarios_editar")) {%>
                             <li class="nav-item"><a class="nav-link" href="/users/edit/<%= user.id %>"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                            <% } %>
                         </ul>
 
                     </section>

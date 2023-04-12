@@ -33,9 +33,15 @@
           <span>Config del Sistema</span>
         </a>
         <ul class="sub">
+          <% if (req.session.userCan.includes("usuarios_del_sistema")) { %>
           <li class="<%= req.originalUrl === '/sysconfig/intusers' ? 'active' : '' %>"><a href="/sysconfig/intusers">Usuarios</a></li>
+          <% } %>
+          <% if (req.session.userCan.includes("roles_gestionar")) { %>
           <li class="<%= req.originalUrl === '/sysconfig/roles' ? 'active' : '' %>"><a href="/sysconfig/roles">Roles</a></li>
+          <% } %>
+          <% if (req.session.userCan.includes("permisos_gestionar")) { %>
           <li class="<%= req.originalUrl === '/sysconfig/permissions' ? 'active' : '' %>"><a href="/sysconfig/permissions">Permisos</a></li>
+          <% } %>
           <li class="<%= req.originalUrl === '/sysconfig/domains' ? 'active' : '' %>"><a href="/sysconfig/domains">Mail-Dominios</a></li>
           <li class="<%= req.originalUrl === '/sysconfig/organizations' ? 'active' : '' %>"><a href="/sysconfig/organizations">Empresas</a></li>
           <li class="<%= req.originalUrl === '/sysconfig/locations' ? 'active' : '' %>"><a href="/sysconfig/locations">Locación</a></li>

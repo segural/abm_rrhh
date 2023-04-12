@@ -38,6 +38,6 @@ app.use("/", mainRoutes);
 app.use("/sysconfig", sysconfigRoutes);
 app.use("/users", usersRoutes);
 
-app.listen(process.env.PORT || 8000, function () {
-  console.log(`Servidor corriendo en puerto ${process.env.PORT || 8000}`);
+app.listen(process.env.PORT || 3000, function () {
+  console.log(`Servidor corriendo en puerto ${process.env.PORT || 3000}`);
 });

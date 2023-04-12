@@ -55,7 +55,7 @@
                           <th>Permiso</th>
                           <th>Descripción</th>
                           <th>Roles</th>
-                          <% if (req.session.userCan.includes("permisos_gestionar") && (req.session.userCan.includes("permisos_editar") || req.session.userCan.includes("permisos_eliminar"))) { %>
+                          <% if (req.session.userCan.includes("permisos_gestionar")) { %>
                             <th class="center hidden-phone">Acciones</th>
                           <% } %>
                         </tr>
@@ -70,21 +70,17 @@
                             <span class="badge badge-secondary"><%= permission.roles[i].name %></span>
                             <% } %>
                           </td>
-                          <% if (req.session.userCan.includes("permisos_gestionar") && (req.session.userCan.includes("permisos_editar") || req.session.userCan.includes("permisos_eliminar"))) { %>
+                          <% if (req.session.userCan.includes("permisos_gestionar")) { %>
                           <td class="center hidden-phone">
-                            <% if (req.session.userCan.includes("permisos_editar")) { %>
                             <a href="/sysconfig/permissions/<%= permission.id %>/edit">
                               <button class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i></button
                             ></a>
-                            <% } %>
-                            <% if (req.session.userCan.includes("permisos_eliminar")) { %>
                             <a data-toggle="modal" href="#myModal-<%= permission.id %>">
                               <button class="btn btn-danger btn-sm" type="button">
                                 <i class="fa fa-trash-o"></i>
                               </button>
                             </a>
-                            <% } %>
                             <!-- Modal -->
                             <div class="modal fade" id="myModal-<%= permission.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
@@ -119,7 +115,7 @@
                           <th>Permiso</th>
                           <th>Descripción</th>
                           <th>Roles</th>
-                          <% if (req.session.userCan.includes("permisos_gestionar") && (req.session.userCan.includes("permisos_editar") || req.session.userCan.includes("permisos_eliminar"))) { %>
+                          <% if (req.session.userCan.includes("permisos_gestionar")) { %>
                             <th class="center hidden-phone">Acciones</th>
                           <% } %>
                         </tr>

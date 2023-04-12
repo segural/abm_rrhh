@@ -55,7 +55,7 @@
                         <tr>
                           <th>Rol</th>
                           <th>Permisos</th>
-                          <% if (req.session.userCan.includes("roles_gestionar") && (req.session.userCan.includes("roles_editar") || req.session.userCan.includes("roles_eliminar"))) { %>
+                          <% if (req.session.userCan.includes("roles_gestionar")) { %>
                           <th class="center hidden-phone">Acciones</th>
                           <% } %>
                         </tr>
@@ -69,17 +69,14 @@
                             <span class="badge badge-secondary"><%= role.permissions[i].name %></span>
                             <% } %>
                           </td>
-                          <% if (req.session.userCan.includes("roles_gestionar") && (req.session.userCan.includes("roles_editar") || req.session.userCan.includes("roles_eliminar"))) { %>
+                          <% if (req.session.userCan.includes("roles_gestionar")) { %>
                           <td class="center hidden-phone">
-                            <% if (req.session.userCan.includes("roles_editar")) { %>
                             <a href="/sysconfig/roles/<%= role.id %>/edit">
                               <button class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button
                             ></a>
-                            <% } %> <% if (req.session.userCan.includes("roles_eliminar")) { %>
                             <a data-toggle="modal" href="#roleDeleteModal-<%= role.id %>">
                               <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
                             </a>
-                            <% } %>
                             <!-- Modal -->
                             <div class="modal fade" id="roleDeleteModal-<%= role.id %>" tabindex="-1" role="dialog" aria-labelledby="roleDeleteModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
@@ -110,7 +107,7 @@
                         <tr>
                           <th>Rol</th>
                           <th>Permisos</th>
-                          <% if (req.session.userCan.includes("roles_gestionar") && (req.session.userCan.includes("roles_editar") || req.session.userCan.includes("roles_eliminar"))) { %>
+                          <% if (req.session.userCan.includes("roles_gestionar")) { %>
                           <th class="center hidden-phone">Acciones</th>
                           <% } %>
                         </tr>
