@@ -19,6 +19,7 @@ router.get("/pendingit", authMiddleware, userController.userPendingIt);
 router.get("/detail/:id", authMiddleware, userController.userDetail);
 router.get("/edit/:id", authMiddleware, userController.userEdit);
 router.get("/disabled/", authMiddleware, userController.userListDisable);
+router.get("/logical/", authMiddleware, userController.userListLogicalDown);
 
 //Rutas post/put
 router.post("/newuser", userController.userStore);
@@ -26,6 +27,7 @@ router.put("/created/:id", userController.userCreated);
 router.put("/disable/:id", userController.userDisabled);
 router.put("/down/:id", userController.userDown);
 router.put("/enable/:id", userController.userEnabled);
+router.put("/logicdown/:id", userController.userLogicDown);
 router.put("/directenable/:id", userController.userDirectEnabled);
 router.put("/tempenable/:id", userController.userTempEnabled);
 router.put("/edituser/:id", userController.userUpdate);

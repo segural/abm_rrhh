@@ -40,6 +40,15 @@ const userController = {
         })
         res.render("./users/usersDisabled.ejs", { req, users });
     },
+
+    userListLogicalDown: async (req, res) => {
+        let users = await db.abmusers.findAll({
+            where: {
+                status: "logic_down"
+            }
+        })
+        res.render("./users/usersErased.ejs", { req, users });
+    },
     
     newUser: async (req, res) => {
         let domains = await db.domains.findAll();
@@ -110,7 +119,7 @@ const userController = {
         var mainOptions = {
             from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
             to: "luciano.segura@rtp.com.ar",
-            subject: "Se ha editado un usuario de red",
+            subject: "Se ha solicitado alta de usuerio de red",
             html: Template,
         };
 
@@ -470,11 +479,21 @@ const userController = {
 
         res.redirect('/users/list')
     },
+
+    userLogicDown: async (req, res) => {
+        let userDown = await db.abmusers.findByPk(req.params.id);
+            await userDown.update({
+                status: "logic_down"
+            });
+
+        await user.createLog({description:'usuario_eliminado', abmUserId: user.id, userID: req.session.userLogged.id});
+
+        res.redirect('/users/list')
+    },
     
     usersDestroy: async (req, res) => {
         let userToDelete = await db.abmusers.findByPk(req.params.id);
         await userToDelete.destroy();
-        await userToDelete.createLog({description:'usuario_' + userToDelete.username + '_eliminado', abmUserId: userToDelete.id, userID: req.session.userLogged.id});
         res.redirect('/users/list');
     },
 }

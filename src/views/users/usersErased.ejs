@@ -45,7 +45,7 @@
                     <div class="col-lg-6" style="margin: auto;">
                         <section class="card">
                             <header class="card-header">
-                                <i class="fa fa-users "></i> Listado de Usuarios Pendientes de Alta
+                                <i class="fa fa-users "></i> Listado de Usuarios dados de baja
                             <span class="tools pull-right">
                                 <a href="javascript:;" class="fa fa-chevron-down"></a>
                                 <a href="javascript:;" class="fa fa-times"></a>
@@ -60,26 +60,47 @@
                                             <th>Posición</th>
                                             <th>Departamento</th>
                                             <th>Estado</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% for( user of users ) { %>
-                                            <% if (user.status != "ok" && user.status != "disabled" && user.status != "temp_ok" && user.status != "logic_down") {%> 
                                             <tr class="gradeX">
                                                 <td><%= user.firstName %> <%= user.lastName %></td>
                                                 <td><%= user.position %> </td>
                                                 <td><%= user.department %> </td>
-                                                <td> 
-                                                    <% if (user.status == "it" || user.status == "enable_it" || user.status == "temp_it") {%>  
-                                                    <span class="badge badge-secondary label-mini">Pendiente Alta IT</span>
-                                                    <% } else if (user.status == "chief") {%>  
-                                                    <span class="badge badge-primary label-mini">Pendiente Jefe</span>
-                                                    <% } else if (user.status == "it_disable") {%>
-                                                        <span class="badge badge-warning label-mini">Pendiente Baja IT</span>
-                                                    <% } %>
+                                                <td><span class="badge badge-danger label-mini">Baja difinitiva</span></td>
+                                                <td class="center hidden-phone">
+                                                        <a data-toggle="modal" href="#deleteModal-<%= user.id %>">
+                                                            <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                                        </a>
+                                                    <!-- Modal Delete-->
+                                                        <div class="modal fade " id="deleteModal-<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="deleteModal-<%= user.id %>">Confirmar eliminación definitiva</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Confirma la eliminación de: <b><%= user.firstName %> <%= user.lastName %></b>?<br>
+                                                                        Tenga en cuenta que este proceso no se puede deshacer y se perderán todos los registros del usuario.
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                        <form action="/users/destroy/<%= user.id %>?_method=DELETE" method="POST" id="form">
+                                                                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <!-- modal -->
                                                 </td>
                                             </tr>
-                                            <% }} %>
+                                            <% } %>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -87,6 +108,7 @@
                                             <th>Posición</th>
                                             <th>Departamento</th>
                                             <th>Estado</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </tfoot>
                             </table>                            
