@@ -8,6 +8,8 @@ const publicPath = path.resolve("./public");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const userLoggedMiddleware = require("./src/middlewares/userLoggedMiddleware");
+const cron = require('node-cron');
+const AutoMails = require("./src/controllers/AutoMails")
 // const rememberMeMiddleware = require("./src/middlewares/rememberMeMiddleware");
 
 //Defino el/los middlewares que se usarán de forma global:
@@ -37,6 +39,12 @@ const usersRoutes = require("./src/routes/users.js");
 app.use("/", mainRoutes);
 app.use("/sysconfig", sysconfigRoutes);
 app.use("/users", usersRoutes);
+
+//Scheduled Job
+cron.schedule("0 0 8 * * *", function() {
+  AutoMails();
+},{timezone: "America/Argentina/Buenos_Aires"}
+);
 
 app.listen(process.env.PORT || 3000, function () {
   console.log(`Servidor corriendo en puerto ${process.env.PORT || 3000}`);

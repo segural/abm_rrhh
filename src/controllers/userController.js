@@ -102,7 +102,7 @@ const userController = {
 
         let internaluser = req.session.userLogged
 
-        // EMAIL
+        // EMAIL        
 
         let transporter = nodemailer.createTransport({
             host: process.env.MAIL_HOST,

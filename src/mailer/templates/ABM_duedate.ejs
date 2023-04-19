@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMAIL -Template</title>
+</head>
+<body>
+    <h1>Sistema ABM - Usuarios</h1>
+    <br>
+    <tr>
+        <td align="left">
+            <span style="font-size: 20px; color: grey; font-weight: 800;">Vencimiento de usuarios de red.</span>
+        </td>
+    </tr>
+    <br>
+    <tr>
+        <td  style="color: #a4a4a4; line-height: 25px; font-size: 12px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
+
+            <p style="color: #000000;">Hoy vencen los siguientes usuarios de red:</p>
+            <ul>
+                <% for (user of users) {%>
+                <li><b><%= user.firstName %> <%= user.lastName %> - <%= user.department %></b></li>
+                <% } %>
+            </ul>
+            
+            <a href="http://abmrrhh.crtp.corp:3000" style="text-decoration: none">Puede verificar ingresando al sistema</a>
+
+        </td>
+    </tr>
+</body>
+</html>
