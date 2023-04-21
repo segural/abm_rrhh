@@ -22,7 +22,12 @@
             <ul>
                 <li>Usuario: crtp.corp\<%= newdata.username %></li>
                 <li>Contraseña: Ab123456</li>
+                <% if (newdata.email != "") {%>
                 <li>E-Mail: <%= newdata.email %></li>
+                <% } %>
+                <% if (newdata.userduedate != null) {%>
+                <li>Fecha de vancimiento: <%= newdata.userduedate %></li>
+                <% } %>
             </ul>
 
         </td>

@@ -120,7 +120,7 @@
                                 <div class="bio-row">
                                     <p><span>Usuario de red </span>: <% if (user.username) { %> crtp.corp\<%= user.username %> <% } else { %> Aún no posee<% } %></p>
                                 </div>
-                                <% if (user.external) {%>
+                                <% if (user.userduedate != null) {%>
                                 <div class="bio-row">
                                     <p><span>Vencimiento de la cuenta</span>: 
                                         <%  let duedate = new Date(user.userduedate);duedate = new Date(duedate.getFullYear(),duedate.getMonth(),duedate.getDate() + 1) %> 

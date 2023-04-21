@@ -120,11 +120,15 @@
                                                                         <br>
                                                                         <div class="form-group row" style="margin-top: 30px; padding: 0 50px;">
                                                                             <label class="col-sm-4 col-form-label">Tipo de Habilitación</label>
-                                                                            <select type="text" class="form-control" name="status" required>
+                                                                            <select type="text" class="form-control" name="status" id="status" onChange="enable('status', 'duedate', this)">
                                                                                 <option disabled selected></option>
-                                                                                <option value="enable_it"> Habilitación permanente </option>
-                                                                                <option value="temp_it"> Habilitación temporaria </option>
-                                                                            </select>
+                                                                                <option value="enable_it" id="enable"> Habilitación permanente </option>
+                                                                                <option value="temp_it" id="temp"> Habilitación temporaria </option>
+                                                                            </select>                                                                       
+                                                                            <div class="form-group row" style="padding: 0 15px;"  id="duedate" hidden>
+                                                                                <label class="col-sm-7 col-form-label">Indique fecha de baja</label>
+                                                                                <input type="date" class="form-control" name="userduedate">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -154,13 +158,12 @@
                         </div>                   
                     </section>
                 </div>
-              </div>
-              
-              </div>
-              </div>
-              <!-- page end-->
-          </section>
-      </section>
+            </div>
+            </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
         <!--main content end-->
 
     <!-- Include footer -->
@@ -179,6 +182,17 @@
 
     <!--common script for all pages-->
     <script src="/js/common-scripts.js"></script>
+
+    <script>
+        function enable(status, duedate, elementValue) {
+            let select = document.getElementById(status);
+            if (select.options[select.selectedIndex].value == "enable_it"){
+                document.getElementById(duedate).hidden = true
+            } else if (select.options[select.selectedIndex].value == "temp_it"){
+                document.getElementById(duedate).removeAttribute("hidden")
+            }
+        }
+    </script>
 
 </body>
 </html>

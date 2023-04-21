@@ -365,8 +365,13 @@ const userController = {
 
     userEnabled: async (req, res) => {
         let userEnabled = await db.abmusers.findByPk(req.params.id);
+        let userduedate = null;
+        if (req.body.userduedate != ""){
+            userduedate = req.body.userduedate
+        };
         await userEnabled.update({
-            status: req.body.status
+            status: req.body.status,
+            userduedate: userduedate
         });
 
         await user.createLog({description:'IT_usuario_habilitado', abmUserId: user.id, userID: req.session.userLogged.id});
