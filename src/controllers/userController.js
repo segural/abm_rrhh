@@ -117,9 +117,10 @@ const userController = {
         const Template = await ejs.renderFile("src/mailer/templates/ABM_new.ejs", { user: newuser, internaluser, newdata: req.body });
 
         var mainOptions = {
-            from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-            to: "luciano.segura@rtp.com.ar",
-            subject: "Se ha solicitado alta de usuerio de red",
+            from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+            to: "notificaciones_it@rtp.com.ar",
+            cc: "recursoshumanos@rtp.com.ar",
+            subject: "Se ha solicitado alta de usuario de red",
             html: Template,
         };
 
@@ -223,8 +224,9 @@ const userController = {
         const Template = await ejs.renderFile("src/mailer/templates/ABM_edit.ejs", { user: userToUpdate, internaluser, newdata: req.body, olddata, username });
 
         var mainOptions = {
-            from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-            to: "luciano.segura@rtp.com.ar",
+            from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+            to: "notificaciones_it@rtp.com.ar",
+            cc: "recursoshumanos@rtp.com.ar",
             subject: "Se ha editado un usuario de red",
             html: Template,
         };
@@ -255,6 +257,12 @@ const userController = {
             status: "ok"
         });
         await user.createLog({description:'IT_usuario_alta', abmUserId: user.id, userID: req.session.userLogged.id});
+        
+        let boss = await db.chiefs.findOne({
+            where: {
+                fullName: user.chief
+            }
+        })
 
             // EMAIL
             let transporter = nodemailer.createTransport({
@@ -270,8 +278,9 @@ const userController = {
             const Template = await ejs.renderFile("src/mailer/templates/ABM_userok.ejs", { user, newdata: req.body});
     
             var mainOptions = {
-                from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-                to: "luciano.segura@rtp.com.ar",
+                from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+                to: "recursoshumanos@rtp.com.ar",
+                cc: boss.email,
                 subject: "Se ha generado un nuevo usuario de red",
                 html: Template,
             };
@@ -308,8 +317,9 @@ const userController = {
             const Template = await ejs.renderFile("src/mailer/templates/ABM_disable.ejs", { user: userDisabled});
     
             var mainOptions = {
-                from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-                to: "luciano.segura@rtp.com.ar",
+                from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+                to: "notificaciones_it@rtp.com.ar",
+                cc: "recursoshumanos@rtp.com.ar",
                 subject: "Se ha solicitado la baja de un usuario",
                 html: Template,
             };
@@ -346,8 +356,8 @@ const userController = {
             const Template = await ejs.renderFile("src/mailer/templates/ABM_down.ejs", { user: userDisabled});
     
             var mainOptions = {
-                from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-                to: "luciano.segura@rtp.com.ar",
+                from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+                to: "recursoshumanos@rtp.com.ar",
                 subject: "Se dió de baja un usuario",
                 html: Template,
             };
@@ -376,26 +386,33 @@ const userController = {
 
         await user.createLog({description:'IT_usuario_habilitado', abmUserId: user.id, userID: req.session.userLogged.id});
 
-            // EMAIL
-            let transporter = nodemailer.createTransport({
-                host: process.env.MAIL_HOST,
-                secure: process.env.MAIL_ENCRYPT,
-                port: process.env.MAIL_PORT,
-                auth: {
-                    user: process.env.MAIL_USER,
-                    pass: process.env.MAIL_PASS,
-                },
+        let boss = await db.chiefs.findOne({
+            where: {
+                fullName: userEnabled.chief
+            }
+        })
+        
+        // EMAIL
+        let transporter = nodemailer.createTransport({
+            host: process.env.MAIL_HOST,
+            secure: process.env.MAIL_ENCRYPT,
+            port: process.env.MAIL_PORT,
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
+            },
             });
-    
+            
             const Template = await ejs.renderFile("src/mailer/templates/ABM_enabled.ejs", { user: userEnabled, newdata: userEnabled});
-    
+            
             var mainOptions = {
-                from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-                to: "luciano.segura@rtp.com.ar",
+                from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+                to: "recursoshumanos@rtp.com.ar",
+                cc: boss.email,
                 subject: "Se ha habilitado un usuario de red",
                 html: Template,
             };
-    
+            
             transporter.sendMail(mainOptions, function (err, info) {
                 if (err) {
                 console.log(err);
@@ -403,34 +420,41 @@ const userController = {
                 console.log("Message sent: " + info.response);
                 }
             });
-        
-        res.redirect('/users/list')
+            
+            res.redirect('/users/list')
     },
-
+    
     userDirectEnabled: async (req, res) => {
         let userEnabled = await db.abmusers.findByPk(req.params.id);
         await userEnabled.update({
             status: "ok"
         });
-
+        
         await user.createLog({description:'IT_usuario_habilitado', abmUserId: user.id, userID: req.session.userLogged.id});
+        
+        let boss = await db.chiefs.findOne({
+            where: {
+                fullName: userEnabled.chief
+            }
+        })
 
-            // EMAIL
-            let transporter = nodemailer.createTransport({
-                host: process.env.MAIL_HOST,
-                secure: process.env.MAIL_ENCRYPT,
-                port: process.env.MAIL_PORT,
-                auth: {
-                    user: process.env.MAIL_USER,
-                    pass: process.env.MAIL_PASS,
-                },
-            });
+        // EMAIL
+        let transporter = nodemailer.createTransport({
+            host: process.env.MAIL_HOST,
+            secure: process.env.MAIL_ENCRYPT,
+            port: process.env.MAIL_PORT,
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
+            },
+        });
     
             const Template = await ejs.renderFile("src/mailer/templates/ABM_enabled.ejs", { user: userEnabled, newdata: userEnabled});
     
             var mainOptions = {
-                from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-                to: "luciano.segura@rtp.com.ar",
+                from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+                to: "recursoshumanos@rtp.com.ar",
+                cc: boss.email,
                 subject: "Se ha habilitado un usuario de red",
                 html: Template,
             };
@@ -454,6 +478,12 @@ const userController = {
 
         await user.createLog({description:'IT_usuario_habilitado_Temporal', abmUserId: user.id, userID: req.session.userLogged.id});
 
+        let boss = await db.chiefs.findOne({
+            where: {
+                fullName: userEnabled.chief
+            }
+        })
+
             // EMAIL
             let transporter = nodemailer.createTransport({
                 host: process.env.MAIL_HOST,
@@ -468,8 +498,9 @@ const userController = {
             const Template = await ejs.renderFile("src/mailer/templates/ABM_enabled.ejs", { user: userEnabled, newdata: userEnabled});
 
             var mainOptions = {
-                from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-                to: "luciano.segura@rtp.com.ar",
+                from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+                to: "recursoshumanos@rtp.com.ar",
+                cc: boss.email,
                 subject: "Se ha habilitado un usuario temporalmente",
                 html: Template,
             };
