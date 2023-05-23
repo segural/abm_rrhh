@@ -16,6 +16,35 @@ const userController = {
             },
         })
         res.render("./users/usersList.ejs", { req, users });
+
+        //EMAIL PRUEBA
+
+        const ews = require('ews-javascript-api');
+
+        // Configura la conexión con el servidor de Exchange
+        const exchService = new ews.ExchangeService(ews.ExchangeVersion.Exchange2013);
+        exchService.Credentials = new ews.ExchangeCredentials('segural@crtp.corp', 'Feli2004');
+        exchService.Url = new ews.Uri('https://arexchange.crtp.com.ar/EWS/Exchange.asmx');
+
+        // Crea el mensaje de correo electrónico
+        const emailMessage = new ews.EmailMessage(exchService);
+
+        emailMessage.Subject = '¡Hola desde Node.js!';
+        emailMessage.Body = new ews.MessageBody('Este es un correo electrónico enviado a través de Node.js y Exchange.');
+
+        // Configura el remitente y destinatario
+        emailMessage.From = new ews.EmailAddress('"ABM-Usuarios" <luciano.segura@rtp.com.ar>');
+        emailMessage.ToRecipients.Add('luciano.segura@rtp.com.ar');
+
+        // Envía el correo electrónico
+        emailMessage.SendAndSaveCopy()
+          .then(() => {
+            console.log('El correo electrónico se envió correctamente.');
+          })
+          .catch((error) => {
+            console.log('Error al enviar el correo electrónico:', error);
+          });
+      
     },
 
     userPending: async (req, res) => {

@@ -28,8 +28,8 @@ const AutoMails = async function () {
         const Template = await ejs.renderFile("src/mailer/templates/ABM_duedate.ejs", { users });
 
         var mainOptions = {
-            from: '"ABM-Usuarios" <consultas.eticas.rtp@gmail.com>',
-            to: "luciano.segura@rtp.com.ar",
+            from: '"ABM-Usuarios" <notificaciones.it.rtp@gmail.com>',
+            to: "recursoshumanos@rtp.com.ar",
             subject: "Hoy vencen usuarios de red",
             html: Template,
         };
